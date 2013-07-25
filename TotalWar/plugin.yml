@@ -1,0 +1,27 @@
+name: TotalWar
+main: com.caved_in.TotalWar
+version: 1.0
+description: The "Main" framework for TGC's TotalWar
+author: Brandon_TGC
+depend: [Vault,MaterialAPI,Citizens,TotalWarItems,PopupMenuAPI,SkillSystem,Votifier,ChestRegen,TotalWizard,EnchantmentAPI,CosmeticEnchantments]
+commands:
+   stats:
+      description: View your, or another players stats!
+      usage: /<command>
+      permission: TotalWar.player
+   join:
+      description: Used to join a faction; Available factions are: Pirates, Pagans, Templars, Dragonkin
+      usage: /<command> [Pirates/Pagans/Templars/Dragonkin]
+      permission: TotalWar.player
+   totalwar:
+      description: Debugging tools for Brandon/Admins
+      usage: /<command> <Subcommand>
+      permission: TotalWar.toggle
+   itemgen:
+      description: Not for your use, sorry
+      usage: /<command> <ItemID as defined in the ItemMeta Config (Non minecraft ID)>
+      permission: op
+   setwaypoint:
+      description: Used to add a new waypoint to an existing / new travel-npc
+      usage: /<command> <Npc Name> <Warp Name>
+      permission: op

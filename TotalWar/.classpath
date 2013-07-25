@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="main/java/com/caved_in/Events/InventoryClick.java|main/java/com/caved_in/Events/ProjectileHit.java|main/java/com/caved_in/CraftingRecipes/GrapplerArrowRecipe.java|main/java/com/caved_in/CraftingRecipes/GrapplerRecipe.java|main/java/com/caved_in/CraftingRecipes/ThrowingKnifeRecipe.java|main/java/com/caved_in/Handlers/DynamicEventHandlers/|main/java/com/caved_in/Handlers/DynamicEvents/DynamicsHandler.java|main/java/com/caved_in/Items/Weapons/Banger.java|main/java/com/caved_in/Items/Weapons/Grappler.java|main/java/com/caved_in/Items/Weapons/GrapplerArrow.java|main/java/com/caved_in/Items/Weapons/HandCannon.java|main/java/com/caved_in/Items/Weapons/Throwing_Knife.java|main/java/com/caved_in/Items/Weapons/Wombats_Stomper.java|main/java/com/caved_in/Items/Armors/DiamondBoots.java|main/java/com/caved_in/Items/Armors/DiamondChest.java|main/java/com/caved_in/Items/Armors/DiamondHelm.java|main/java/com/caved_in/Items/Armors/DiamondPants.java|main/java/com/caved_in/Items/Armors/GoldBoots.java|main/java/com/caved_in/Items/Armors/GoldChest.java|main/java/com/caved_in/Items/Armors/GoldHelmet.java|main/java/com/caved_in/Items/Armors/GoldPants.java|main/java/com/caved_in/Items/Armors/IronBoots.java|main/java/com/caved_in/Items/Armors/IronChest.java|main/java/com/caved_in/Items/Armors/IronHelmet.java|main/java/com/caved_in/Items/Armors/IronPants.java|main/java/com/caved_in/Items/Armors/MinerHelmet.java" including="**/*.java" kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Brandon/Downloads/MaterialAPI.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Brandon/Downloads/citizensapi.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Brandon/Downloads/ChestRegen.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Brandon/Downloads/EnchantmentAPI.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Brandon/Downloads/NametagEdit.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Brandon/Downloads/PopupMenuAPI.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Brandon/Downloads/SkillSystem.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Brandon/Downloads/spigot-1.6.2-R0.1-SNAPSHOT (7).jar"/>
+	<classpathentry kind="lib" path="C:/Users/Brandon/Downloads/TotalWarItems.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Brandon/Downloads/TotalWizard.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Brandon/Downloads/Vault.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Brandon/Downloads/Votifier (1).jar"/>
+	<classpathentry kind="output" path="target/classes"/>
+</classpath>

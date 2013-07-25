@@ -1,0 +1,8 @@
+AmountOfEvents: 30
+WorldName: PaganTemplar
+EventRefreshTicks: 108000
+MobHealthMultiplier: 3
+GlobalExpMultiplier: 1
+RareCraftIncreasePerLevel: 0.01
+DonatorRareCraftIncrease: 4.5
+HiddenPotentialAppraisalPrice: 5000
