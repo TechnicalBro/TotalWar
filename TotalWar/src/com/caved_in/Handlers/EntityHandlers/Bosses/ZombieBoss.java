@@ -11,7 +11,7 @@ import com.caved_in.Handlers.EntityHandlers.BossHandler.BossType;
 
 public class ZombieBoss extends Boss
 {
-	private List<String> Names = Arrays.asList(new String[] { "Wolfred", "Wollis", "Ralph", "Jeff", "Jeffery Sr.", "Slim", "Finch", "Stiffler", "Winston", "Cadent", "The Anti Lift", "Big Jeffery", "Stomper", "Stamper" });
+	private List<String> Names = Arrays.asList(new String[] { "Wolfred", "Wollis", "Ralph", "Jeff", "Jeffery Sr.", "Slim", "Finch", "Stiffler", "Winston", "Cadent", "The Anti Lift", "Big Jeffery", "Stomper", "Stamper","Tuk" });
 
 	private String Name = "";
 	private int MaxHealth = 900;

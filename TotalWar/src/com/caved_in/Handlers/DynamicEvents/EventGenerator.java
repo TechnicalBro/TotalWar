@@ -20,12 +20,7 @@ public class EventGenerator
 	private EntityType[] Types = { EntityType.BAT, EntityType.BLAZE, EntityType.SKELETON, EntityType.SPIDER, EntityType.CREEPER, EntityType.ZOMBIE, EntityType.SQUID, EntityType.CAVE_SPIDER, EntityType.ENDERMAN, EntityType.GIANT, EntityType.WITCH, EntityType.GHAST, EntityType.IRON_GOLEM, EntityType.MAGMA_CUBE, EntityType.MUSHROOM_COW, EntityType.OCELOT, EntityType.SILVERFISH, EntityType.SNOWMAN, EntityType.WOLF, EntityType.PIG_ZOMBIE };
 	private Material[] Materials = { Material.STONE, Material.COBBLESTONE, Material.SANDSTONE, Material.OBSIDIAN, Material.COAL_ORE, Material.CACTUS, Material.LOG, Material.WOOD, Material.MELON, Material.CAKE, Material.BRICK, Material.LAPIS_BLOCK, Material.IRON_ORE, Material.DISPENSER, Material.JACK_O_LANTERN, Material.PUMPKIN };
 	private Material[] Craftables_Stackable = { Material.ARROW, Material.CLAY_BRICK, Material.COBBLESTONE_STAIRS, Material.NETHER_BRICK_STAIRS, Material.SMOOTH_BRICK, Material.SMOOTH_STAIRS, Material.IRON_INGOT, Material.GOLD_INGOT, Material.WOOD_STAIRS, Material.FURNACE, Material.CHEST, Material.WOOD_BUTTON, Material.TORCH, Material.GLASS, Material.GLOWSTONE };
-	private int Stackable_Maximum = 140;
-	// private EventNPC[] EventEndNpcs = { new Wilson(), new Drakia(), new
-	// goreko(), new Spartacus(), new KinSmith(), new Dedrik(), new Hag(), new
-	// PiratePeddler() };
-
-	// private List<Integer> EventNPCs = new ArrayList<Integer>();
+	private int Stackable_Maximum = 64;
 	private List<AreaEventNPC> EventNPCs = new ArrayList<AreaEventNPC>();
 
 	public AreaEvent generateEvent()
@@ -64,20 +59,20 @@ public class EventGenerator
 		switch (Random.nextInt(4))
 		{
 		case 0:
-			Event = new AreaEvent(AreaEvent.EventType.KILL_MOB, new Random().nextInt(50) + new Random().nextInt(16));
+			Event = new AreaEvent(AreaEvent.EventType.KILL_MOB, new Random().nextInt(20) + new Random().nextInt(16));
 			Event.setEntityType(generateEntityType());
 			break;
 		case 1:
 			Event = new AreaEvent(AreaEvent.EventType.BOSS_HUNT, generateBoss());
 			break;
 		case 2:
-			Event = new AreaEvent(AreaEvent.EventType.BREAK_BLOCK, 1 + new Random().nextInt(120) + new Random().nextInt(20), generateMaterial());
+			Event = new AreaEvent(AreaEvent.EventType.BREAK_BLOCK, 1 + new Random().nextInt(32) + new Random().nextInt(32), generateMaterial());
 			break;
 		case 3:
 			Event = new AreaEvent(AreaEvent.EventType.CRAFT, this.generateCraftAmount(), this.generateCraft());
 			break;
 		default:
-			Event = new AreaEvent(AreaEvent.EventType.KILL_MOB, new Random().nextInt(50) + new Random().nextInt(15));
+			Event = new AreaEvent(AreaEvent.EventType.KILL_MOB, new Random().nextInt(20) + new Random().nextInt(16));
 			Event.setEntityType(generateEntityType());
 			break;
 		}
@@ -123,8 +118,6 @@ public class EventGenerator
 
 	private int generateNpc()
 	{
-		// return this.EventEndNpcs[new
-		// Random().nextInt(this.EventEndNpcs.length)];
 		for (NPC N : CitizensAPI.getNPCRegistry())
 		{
 			if (N.hasTrait(AreaEventNPCTrait.class) || N.hasTrait(EventNPCTrait.class))
@@ -145,12 +138,11 @@ public class EventGenerator
 
 	private int generateCraftAmount()
 	{
-		int CraftAmount = 10 + new Random().nextInt(35) + new Random().nextInt(35) + 1;
+		int CraftAmount = 8 + new Random().nextInt(22) + new Random().nextInt(32) + 1;
 		if (CraftAmount > this.Stackable_Maximum)
 		{
 			return this.Stackable_Maximum;
 		}
-
 		return CraftAmount;
 	}
 

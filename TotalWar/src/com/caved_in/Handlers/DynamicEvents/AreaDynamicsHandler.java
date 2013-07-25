@@ -118,7 +118,6 @@ public class AreaDynamicsHandler
 			}
 			TotalWar.Console("[Events] Event Replaced with a randomly generated one");
 		}
-		// UpdateBooks();
 		TotalWar.UpdateAllPlayerEvents();
 	}
 
@@ -135,19 +134,8 @@ public class AreaDynamicsHandler
 			AddEvent(new EventGenerator().generateEvent());
 		}
 		TotalWar.Console("[Events] All Events have been replaced with new, Randomly generated ones!");
-		// UpdateBooks();
 		TotalWar.UpdateAllPlayerEvents();
 	}
-
-	/*
-	 * public void UpdateBooks() { TotalWar.BookManager.ClearPages(); for
-	 * (AreaEvent e : this.Event_Progress.keySet()) {
-	 * TotalWar.BookManager.AddPage(getEventText(e)); }
-	 * TotalWar.BookManager.setLastUpdated
-	 * (Long.valueOf(System.currentTimeMillis()));
-	 * TotalWar.Console("[BookManager] Updated Bookmanager Global Event Book");
-	 * }
-	 */
 
 	public boolean isEventsCount(int Check)
 	{
@@ -161,8 +149,6 @@ public class AreaDynamicsHandler
 	public int NPCAmount()
 	{
 		int Return = 0;
-		// return this.EventEndNpcs[new
-		// Random().nextInt(this.EventEndNpcs.length)];
 		for (NPC N : CitizensAPI.getNPCRegistry())
 		{
 			if (N.hasTrait(AreaEventNPCTrait.class) || N.hasTrait(EventNPCTrait.class))

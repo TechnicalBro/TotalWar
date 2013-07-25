@@ -2,6 +2,7 @@ package com.caved_in.Handlers.EntityHandlers.Bosses;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 import com.caved_in.Handlers.EntityHandlers.Attacks.Attack;
 import com.caved_in.Handlers.EntityHandlers.Attacks.Knockback;
@@ -12,6 +13,7 @@ import com.caved_in.Handlers.EntityHandlers.BossHandler.BossType;
 
 public class Queen_Widow extends Boss
 {
+	private List<String> Names = Arrays.asList(new String[] { "Queen Widow","Venom","Lady Arachnai","Acid Spitter","Black Tiger","Tarantox","Armogohma","Venigohma","Airnogohma"});
 	private String Name = "Queen Widow";
 	private int HP = 700;
 
@@ -21,6 +23,11 @@ public class Queen_Widow extends Boss
 	private Slow Slow = new Slow(60, 7);
 	private int EntityID = -1;
 
+	public Queen_Widow()
+	{
+		this.Name = Names.get(new Random().nextInt(Names.size()));
+	}
+	
 	@Override
 	public String getName()
 	{
