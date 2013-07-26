@@ -12,6 +12,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.MaterialData;
 
+import com.caved_in.Handlers.ItemHandlers.ItemHandler;
+import com.caved_in.Items.ArcaneGem;
 import com.caved_in.Items.Gem;
 
 public class RewardItem extends MenuItem
@@ -27,12 +29,22 @@ public class RewardItem extends MenuItem
 	public void onClick(Player Player)
 	{
 		Material Type = getIcon().getItemType();
-		CustomItemStack Stack;
+		CustomItemStack Stack = null;
 		if (this.NonMultiple.contains(Type))
 		{
 			if (Type == Material.EMERALD)
 			{
-				Stack = new CustomItemStack(new Gem("", Material.EMERALD));
+				if (new ItemHandler().itemLoreContains(getItemStack(), "Increases your Mana Regen"))
+				{
+					Player.getInventory().addItem(new ArcaneGem().getItem());
+					getMenu().closeMenu(Player);
+					Player.updateInventory();
+					return;
+				}
+				else
+				{
+					Stack = new CustomItemStack(new Gem("", Material.EMERALD));
+				}
 			}
 			else
 			{

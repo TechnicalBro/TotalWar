@@ -10,7 +10,7 @@ commands:
       usage: /<command>
       permission: TotalWar.player
    join:
-      description: Used to join a faction; Available factions are: Pirates, Pagans, Templars, Dragonkin
+      description: Used to join a faction.
       usage: /<command> [Pirates/Pagans/Templars/Dragonkin]
       permission: TotalWar.player
    totalwar:
