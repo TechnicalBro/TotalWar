@@ -2,6 +2,7 @@ package com.caved_in.CitizenTraits;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map.Entry;
 
 import net.citizensnpcs.api.event.NPCRightClickEvent;
@@ -18,6 +19,7 @@ import org.bukkit.inventory.ItemStack;
 import com.caved_in.TotalWar;
 import com.caved_in.Handlers.DynamicEvents.AreaEvent;
 import com.caved_in.Handlers.DynamicEvents.EventGenerator;
+import com.caved_in.Handlers.DynamicEvents.Wrappers.RequirementWrapper;
 
 public class EventNPCTrait extends Trait
 {
@@ -29,16 +31,26 @@ public class EventNPCTrait extends Trait
 	@EventHandler
 	public void EventNPC_Rightclick(NPCRightClickEvent Event)
 	{
-		if (Event.getClicker().getGameMode() != GameMode.CREATIVE)
+		if (Event.getClicker().isOp())
 		{
-			if (!isThisNpc(Event.getNPC()))
-			{
-				Event.setCancelled(true);
-				return;
-			}
-			// TotalWar.Console("Checking for events @ [" + this.npc.getName() +
-			// " for " + Event.getClicker().getName() + "]");
 			CheckForEvents(Event.getClicker());
+		}
+		else
+		{
+			if (Event.getClicker().getGameMode() != GameMode.CREATIVE)
+			{
+				if (!isThisNpc(Event.getNPC()))
+				{
+					Event.setCancelled(true);
+					return;
+				}
+				CheckForEvents(Event.getClicker());
+			}
+			else
+			{
+				Event.getClicker().sendMessage(this.NpcText(getNPC().getName(),ChatColor.RED + "Don't be a freakin' cheat! You're in creative :("));
+				TotalWar.Console(ChatColor.RED + "Player [" + Event.getClicker().getName() + "] is trying to hand in events while in creative...");
+			}
 		}
 	}
 
@@ -46,122 +58,120 @@ public class EventNPCTrait extends Trait
 	{
 		return ChatColor.GREEN + "[" + NPCName + "] -> You: " + Input;
 	}
-
-	public boolean CheckForRequiredItems(Player Player, AreaEvent e)
+	
+	public RequirementWrapper hasRequiredMaterials(Player Player, AreaEvent e) throws Exception
 	{
-		if ((e.getType() == AreaEvent.EventType.CRAFT) || (e.getType() == AreaEvent.EventType.BREAK_BLOCK))
+		HashMap<Integer, ItemStack> RemovingItems = new HashMap<Integer, ItemStack>();
+		int AmountRequired = e.getAmountRequired();
+		int PlayerAmount = 0;
+		if (Player.getInventory().contains(e.getEventMaterial()))
 		{
-			if (Player.getInventory().contains(e.getEventMaterial()))
+			HashMap<Integer, ? extends ItemStack> EventMaterialSlots = Player.getInventory().all(e.getEventMaterial()); //Get all Slots with their itemstack for the events material
+			for(Entry<Integer, ? extends ItemStack> Pair : EventMaterialSlots.entrySet())
 			{
-				HashMap<Integer, ? extends ItemStack> InventorySlotStack = Player.getInventory().all(e.getEventMaterial());
-				HashMap<Integer, ItemStack> RemovingItemStacks = new HashMap<Integer, ItemStack>();
-				int AmountNeeded = e.getAmountRequired();
-				boolean HasRequiredAmount = false;
-				int ReturningAmount = 0;
-				for (Entry<Integer, ? extends ItemStack> Pair : InventorySlotStack.entrySet())
+				int StackSize = Pair.getValue().getAmount();
+				PlayerAmount += StackSize; //The Amount required is reduced by the amount of event materials the player has
+				if (PlayerAmount >= AmountRequired) //If the player has the amount required
 				{
-					int StackAmount = ((ItemStack) Pair.getValue()).getAmount();
-					if (StackAmount > AmountNeeded)
-					{
-						ReturningAmount = StackAmount - AmountNeeded;
-					}
-					AmountNeeded -= StackAmount;
-					if (AmountNeeded <= 0)
-					{
-						HasRequiredAmount = true;
-						break;
-					}
-
-					TotalWar.Console("Inventory of " + Player.getName() + " at slot " + Pair.getKey() + " has " + StackAmount + " of " + e.getEventMaterial().name() + " with a remainder of " + AmountNeeded + " required.");
-					RemovingItemStacks.put(Pair.getKey(), Pair.getValue());
-				}
-
-				if (HasRequiredAmount)
-				{
-					TotalWar.Console(Player.getName() + " has the amount required");
-					int TotalAmount = e.getAmountRequired();
-					int PlayerAmount = 0;
-					for (Entry<Integer, ? extends ItemStack> Pair : RemovingItemStacks.entrySet())
-					{
-						PlayerAmount += ((ItemStack) Pair.getValue()).getAmount();
-						if (PlayerAmount >= TotalAmount)
-						{
-							if (PlayerAmount - TotalAmount != 0)
-							{
-								ReturningAmount = PlayerAmount - TotalAmount;
-								ItemStack Returning = new ItemStack(e.getEventMaterial());
-								Returning.setAmount(ReturningAmount);
-								Player.getInventory().setItem(Pair.getKey().intValue(), Returning);
-								Player.updateInventory();
-								TotalWar.Console("Took items from " + Player.getName() + " at " + Pair.getKey() + ", but returned " + ReturningAmount);
-							}
-							else
-							{
-								Player.getInventory().setItem(Pair.getKey().intValue(), null);
-								Player.updateInventory();
-								TotalWar.Console("Took all the items from " + Player.getName());
-							}
-						}
-						else
-						{
-							Player.getInventory().setItem(Pair.getKey().intValue(), null);
-							Player.updateInventory();
-							TotalWar.Console("Took items at " + Pair.getKey() + " from " + Player.getName());
-						}
-					}
-					return true;
-				}
-
-				return false;
-			}
-
-			return false;
-		}
-
-		return false;
-	}
-
-	private void CheckForEvents(Player Player)
-	{
-		ArrayList<AreaEvent> Events = TotalWar.EventDynamics.getActiveEvents();
-		for (AreaEvent e : Events)
-		{
-			if (e.getNpcName().equals(getNPC().getName()))
-			{
-				if ((e.getType() == AreaEvent.EventType.CRAFT) || (e.getType() == AreaEvent.EventType.DELIVER) || (e.getType() == AreaEvent.EventType.BREAK_BLOCK))
-				{
-					if ((!TotalWar.EventDynamics.hasBeenRewarded(e, Player.getName())))
-					{
-						if (CheckForRequiredItems(Player, e))
-						{
-							TotalWar.EventDynamics.setRewarded(e, Player.getName(), true);
-							e.GiveRewards(Player);
-						}
-						else
-						{
-							Player.sendMessage(this.NpcText(e.getEventNPC().getName(), e.getRequestText()));
-							// Player.sendMessage(this.NpcText(e.getNpcName(),
-							// "I need " + e.getAmountRequired() + " " +
-							// e.getEventMaterial().toString().toLowerCase().replaceAll("_",
-							// " ") +
-							// ", please make sure you have what I need..."));
-						}
-					}
-					else
-					{
-						Player.sendMessage(this.NpcText(e.getNpcName(), "Thanks for all the help, " + Player.getName() + ", I really appreciate it!"));
-					}
-
-				}
-				else if ((!TotalWar.EventDynamics.hasBeenRewarded(e, Player.getName())) && (TotalWar.EventDynamics.isPlayerCompleted(e, Player.getName())))
-				{
-					TotalWar.EventDynamics.setRewarded(e, Player.getName(), true);
-					e.GiveRewards(Player);
+					RemovingItems.put(Pair.getKey(), Pair.getValue());
+					break; // No moar loop kthx
 				}
 				else
 				{
-					Player.sendMessage(this.NpcText(e.getEventNPC().getName(), e.getRequestText()));
+					RemovingItems.put(Pair.getKey(), Pair.getValue());
 				}
+				//TotalWar.Console("Inventory of " + Player.getName() + " at slot " + Pair.getKey() + " has " + StackAmount + " of " + e.getEventMaterial().name() + " with a remainder of " + AmountNeeded + " required.");
+			}
+			return new RequirementWrapper(AmountRequired, PlayerAmount, RemovingItems);
+		}
+		throw new Exception("Players inventory does not contain Items for this Event");
+	}
+	
+	public void removeEventMaterials(Player Player, AreaEvent Event, RequirementWrapper Wrapper)
+	{
+		for(Entry<Integer, ? extends ItemStack> Item : Wrapper.getItemLocations().entrySet())
+		{
+			Player.getInventory().setItem(Item.getKey(), null); //Setting all the items in the wrapper (items for the event) to nothing (aka removing them)
+			TotalWar.Console("Took items from Player [" + Player.getName() + "] at slot " + Item.getKey() + " with item " + Event.getEventMaterial().name());
+		}
+		if (Wrapper.getLeftovers() > 0) // Handles "leftovers" or extra that the player has
+		{
+			int Returning = Wrapper.getLeftovers();
+			while (true)
+			{
+				if (Returning > 64)
+				{
+					Player.getInventory().addItem(new ItemStack(Event.getEventMaterial(),64));
+					TotalWar.Console("Gave 64 " + Event.getEventMaterial().name() + " leftovers to player [" + Player.getName() + "]");
+					Returning -= 64;
+				}
+				else if (Returning != 0 && Returning <= 64)
+				{
+					Player.getInventory().addItem(new ItemStack(Event.getEventMaterial(),Returning));
+					TotalWar.Console("Gave " + Returning + " " + Event.getEventMaterial().name() + " leftovers to player [" + Player.getName() + "]");
+					break;
+				}
+			}
+		}
+		Player.updateInventory();
+	}
+	
+	public boolean isMaterialEvent(AreaEvent Event)
+	{
+		if (Event.getType() == AreaEvent.EventType.CRAFT || Event.getType() == AreaEvent.EventType.BREAK_BLOCK || Event.getType() == AreaEvent.EventType.DELIVER)
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	public void CheckForEvents(Player Player)
+	{
+		List<AreaEvent> Events = TotalWar.EventDynamics.getEventsForNPC(getNPC().getId());
+		for (AreaEvent Event : Events)
+		{
+			if (!TotalWar.EventDynamics.hasBeenRewarded(Event, Player.getName())) //Player hasn't been rewarded for this event
+			{
+				if (isMaterialEvent(Event)) //Is it an event with materials / Items involved?
+				{
+					if (Player.getInventory().contains(Event.getEventMaterial()))
+					{
+						RequirementWrapper Wrapper;
+						try
+						{
+							Wrapper = this.hasRequiredMaterials(Player, Event);
+							if (Wrapper.hasRequiredAmount())
+							{
+								this.removeEventMaterials(Player, Event, Wrapper);
+								TotalWar.EventDynamics.setRewarded(Event, Player.getName(), true);
+								Event.GiveRewards(Player);
+							}
+							else
+							{
+								Player.sendMessage(this.NpcText(getNPC().getName(), "You're making progress! I just need " + Wrapper.amountRemaining() + " more " + Event.getEventMaterial().name().toLowerCase().replace('_', ' ') + "!"));
+							}
+						}
+						catch (Exception e)
+						{
+							//SLOPPY AS FUCK Catch, but, needed
+							Player.sendMessage(ChatColor.RED + "[ERROR] You've found a bug in the events! Please tell Brandon what you did before you got this error so he can fix it!");
+							e.printStackTrace();
+						}
+					}
+				}
+				else if (TotalWar.EventDynamics.isPlayerCompleted(Event, Player.getName()))
+				{
+					TotalWar.EventDynamics.setRewarded(Event, Player.getName(), true);
+					Event.GiveRewards(Player);
+				}
+				else
+				{
+					Player.sendMessage(this.NpcText(Event.getEventNPC().getName(), Event.getRequestText()));
+				}
+			}
+			else
+			{
+				Player.sendMessage(this.NpcText(Event.getNpcName(), "Thanks for all the help, " + Player.getName() + ", I really appreciate it!"));
 			}
 		}
 	}
@@ -199,8 +209,7 @@ public class EventNPCTrait extends Trait
 	@Override
 	public void onSpawn()
 	{
-
-		// TODO When spawned / attached, give this npc an event
+		
 	}
 
 	@Override
@@ -208,8 +217,3 @@ public class EventNPCTrait extends Trait
 	{
 	}
 }
-
-/*
- * Location: C:\Users\Brandon\Desktop\TotalWar.jar Qualified Name:
- * com.caved_in.CitizenTraits.EventNPCTrait JD-Core Version: 0.6.2
- */

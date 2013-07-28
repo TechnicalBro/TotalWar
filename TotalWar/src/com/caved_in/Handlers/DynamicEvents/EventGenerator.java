@@ -11,7 +11,6 @@ import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 
 import com.caved_in.TotalWar;
-import com.caved_in.CitizenTraits.AreaEventNPCTrait;
 import com.caved_in.CitizenTraits.EventNPCTrait;
 import com.caved_in.Handlers.EntityHandlers.BossHandler.BossType;
 
@@ -120,7 +119,7 @@ public class EventGenerator
 	{
 		for (NPC N : CitizensAPI.getNPCRegistry())
 		{
-			if (N.hasTrait(AreaEventNPCTrait.class) || N.hasTrait(EventNPCTrait.class))
+			if (N.hasTrait(EventNPCTrait.class))
 			{
 				if (!TotalWar.EventDynamics.isNpcInUse(N.getId()))
 				{

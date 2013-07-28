@@ -44,6 +44,11 @@ public class AreaEventNPCTrait extends Trait
 	{
 		return ChatColor.GREEN + "[" + NPCName + "] -> You: " + Input;
 	}
+	
+	public RequirementWrapper hasRequiredMaterialsAmount(Player Player, AreaEvent e)
+	{
+		
+	}
 
 	public boolean CheckForRequiredItems(Player Player, AreaEvent e)
 	{

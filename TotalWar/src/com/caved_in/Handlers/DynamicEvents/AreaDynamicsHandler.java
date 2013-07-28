@@ -10,7 +10,6 @@ import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 
 import com.caved_in.TotalWar;
-import com.caved_in.CitizenTraits.AreaEventNPCTrait;
 import com.caved_in.CitizenTraits.EventNPCTrait;
 import com.caved_in.Handlers.FileHandler.Tag;
 
@@ -151,7 +150,7 @@ public class AreaDynamicsHandler
 		int Return = 0;
 		for (NPC N : CitizensAPI.getNPCRegistry())
 		{
-			if (N.hasTrait(AreaEventNPCTrait.class) || N.hasTrait(EventNPCTrait.class))
+			if (N.hasTrait(EventNPCTrait.class))
 			{
 				Return += 1;
 			}
@@ -285,5 +284,18 @@ public class AreaDynamicsHandler
 			}
 		}
 		return null;
+	}
+	
+	public List<AreaEvent> getEventsForNPC(int NPCID)
+	{
+		List<AreaEvent> Return = new ArrayList<AreaEvent>();
+		for(AreaEvent Event : this.Event_Progress.keySet())
+		{
+			if (Event.getEventNPCID() == NPCID)
+			{
+				Return.add(Event);
+			}
+		}
+		return Return;
 	}
 }
