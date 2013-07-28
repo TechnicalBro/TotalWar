@@ -1,6 +1,5 @@
 package com.caved_in.CitizenTraits;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
@@ -48,7 +47,7 @@ public class EventNPCTrait extends Trait
 			}
 			else
 			{
-				Event.getClicker().sendMessage(this.NpcText(getNPC().getName(),ChatColor.RED + "Don't be a freakin' cheat! You're in creative :("));
+				Event.getClicker().sendMessage(this.NpcText(getNPC().getName(), ChatColor.RED + "Don't be a freakin' cheat! You're in creative :("));
 				TotalWar.Console(ChatColor.RED + "Player [" + Event.getClicker().getName() + "] is trying to hand in events while in creative...");
 			}
 		}
@@ -58,7 +57,7 @@ public class EventNPCTrait extends Trait
 	{
 		return ChatColor.GREEN + "[" + NPCName + "] -> You: " + Input;
 	}
-	
+
 	public RequirementWrapper hasRequiredMaterials(Player Player, AreaEvent e) throws Exception
 	{
 		HashMap<Integer, ItemStack> RemovingItems = new HashMap<Integer, ItemStack>();
@@ -66,12 +65,12 @@ public class EventNPCTrait extends Trait
 		int PlayerAmount = 0;
 		if (Player.getInventory().contains(e.getEventMaterial()))
 		{
-			HashMap<Integer, ? extends ItemStack> EventMaterialSlots = Player.getInventory().all(e.getEventMaterial()); //Get all Slots with their itemstack for the events material
-			for(Entry<Integer, ? extends ItemStack> Pair : EventMaterialSlots.entrySet())
+			HashMap<Integer, ? extends ItemStack> EventMaterialSlots = Player.getInventory().all(e.getEventMaterial());
+			for (Entry<Integer, ? extends ItemStack> Pair : EventMaterialSlots.entrySet())
 			{
 				int StackSize = Pair.getValue().getAmount();
-				PlayerAmount += StackSize; //The Amount required is reduced by the amount of event materials the player has
-				if (PlayerAmount >= AmountRequired) //If the player has the amount required
+				PlayerAmount += StackSize;
+				if (PlayerAmount >= AmountRequired)
 				{
 					RemovingItems.put(Pair.getKey(), Pair.getValue());
 					break; // No moar loop kthx
@@ -80,34 +79,33 @@ public class EventNPCTrait extends Trait
 				{
 					RemovingItems.put(Pair.getKey(), Pair.getValue());
 				}
-				//TotalWar.Console("Inventory of " + Player.getName() + " at slot " + Pair.getKey() + " has " + StackAmount + " of " + e.getEventMaterial().name() + " with a remainder of " + AmountNeeded + " required.");
 			}
 			return new RequirementWrapper(AmountRequired, PlayerAmount, RemovingItems);
 		}
 		throw new Exception("Players inventory does not contain Items for this Event");
 	}
-	
+
 	public void removeEventMaterials(Player Player, AreaEvent Event, RequirementWrapper Wrapper)
 	{
-		for(Entry<Integer, ? extends ItemStack> Item : Wrapper.getItemLocations().entrySet())
+		for (Entry<Integer, ? extends ItemStack> Item : Wrapper.getItemLocations().entrySet())
 		{
-			Player.getInventory().setItem(Item.getKey(), null); //Setting all the items in the wrapper (items for the event) to nothing (aka removing them)
+			Player.getInventory().setItem(Item.getKey(), null);
 			TotalWar.Console("Took items from Player [" + Player.getName() + "] at slot " + Item.getKey() + " with item " + Event.getEventMaterial().name());
 		}
-		if (Wrapper.getLeftovers() > 0) // Handles "leftovers" or extra that the player has
+		if (Wrapper.getLeftovers() > 0)
 		{
 			int Returning = Wrapper.getLeftovers();
 			while (true)
 			{
 				if (Returning > 64)
 				{
-					Player.getInventory().addItem(new ItemStack(Event.getEventMaterial(),64));
+					Player.getInventory().addItem(new ItemStack(Event.getEventMaterial(), 64));
 					TotalWar.Console("Gave 64 " + Event.getEventMaterial().name() + " leftovers to player [" + Player.getName() + "]");
 					Returning -= 64;
 				}
 				else if (Returning != 0 && Returning <= 64)
 				{
-					Player.getInventory().addItem(new ItemStack(Event.getEventMaterial(),Returning));
+					Player.getInventory().addItem(new ItemStack(Event.getEventMaterial(), Returning));
 					TotalWar.Console("Gave " + Returning + " " + Event.getEventMaterial().name() + " leftovers to player [" + Player.getName() + "]");
 					break;
 				}
@@ -115,7 +113,7 @@ public class EventNPCTrait extends Trait
 		}
 		Player.updateInventory();
 	}
-	
+
 	public boolean isMaterialEvent(AreaEvent Event)
 	{
 		if (Event.getType() == AreaEvent.EventType.CRAFT || Event.getType() == AreaEvent.EventType.BREAK_BLOCK || Event.getType() == AreaEvent.EventType.DELIVER)
@@ -124,15 +122,15 @@ public class EventNPCTrait extends Trait
 		}
 		return false;
 	}
-	
+
 	public void CheckForEvents(Player Player)
 	{
 		List<AreaEvent> Events = TotalWar.EventDynamics.getEventsForNPC(getNPC().getId());
 		for (AreaEvent Event : Events)
 		{
-			if (!TotalWar.EventDynamics.hasBeenRewarded(Event, Player.getName())) //Player hasn't been rewarded for this event
+			if (!TotalWar.EventDynamics.hasBeenRewarded(Event, Player.getName()))
 			{
-				if (isMaterialEvent(Event)) //Is it an event with materials / Items involved?
+				if (isMaterialEvent(Event))
 				{
 					if (Player.getInventory().contains(Event.getEventMaterial()))
 					{
@@ -153,7 +151,7 @@ public class EventNPCTrait extends Trait
 						}
 						catch (Exception e)
 						{
-							//SLOPPY AS FUCK Catch, but, needed
+							// SLOPPY AS FUCK Catch, but, needed
 							Player.sendMessage(ChatColor.RED + "[ERROR] You've found a bug in the events! Please tell Brandon what you did before you got this error so he can fix it!");
 							e.printStackTrace();
 						}
@@ -199,6 +197,11 @@ public class EventNPCTrait extends Trait
 				TotalWar.EventDynamics.putPlayerInEvent(Event, P.getName());
 			}
 		}
+		if (!TotalWar.NpcTraitConfig.hasData(this.getNPC().getId()))
+		{
+			TotalWar.NpcTraitConfig.WriteData(this.getNPC().getId(), "eventnpc");
+			TotalWar.Console("Cached the eventnpc trait for " + this.getNPC().getName());
+		}
 	}
 
 	@Override
@@ -209,7 +212,11 @@ public class EventNPCTrait extends Trait
 	@Override
 	public void onSpawn()
 	{
-		
+		if (!TotalWar.NpcTraitConfig.hasData(this.getNPC().getId()))
+		{
+			TotalWar.NpcTraitConfig.WriteData(this.getNPC().getId(), "eventnpc");
+			TotalWar.Console("Cached the eventnpc trait for " + this.getNPC().getName());
+		}
 	}
 
 	@Override

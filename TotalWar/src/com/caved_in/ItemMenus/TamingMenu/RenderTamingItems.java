@@ -10,12 +10,14 @@ import org.bukkit.material.MaterialData;
 
 public class RenderTamingItems
 {
-	public RenderTamingItems() { }
-	
+	public RenderTamingItems()
+	{
+	}
+
 	public List<TamingItem> generateItems()
 	{
 		List<TamingItem> Items = new ArrayList<TamingItem>();
-		Items.add(new TamingItem(ChatColor.YELLOW + "Chicken",new MaterialData(Material.EGG), Arrays.asList(new String[] {"Requires level 1 taming","Use Seeds to tame" })));
+		Items.add(new TamingItem(ChatColor.YELLOW + "Chicken", new MaterialData(Material.EGG), Arrays.asList(new String[] { "Requires level 1 taming", "Use Seeds to tame" })));
 		return null;
 	}
 

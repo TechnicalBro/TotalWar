@@ -13,7 +13,7 @@ import com.caved_in.Handlers.EntityHandlers.BossHandler.BossType;
 
 public class Queen_Widow extends Boss
 {
-	private List<String> Names = Arrays.asList(new String[] { "Queen Widow","Venom","Lady Arachnai","Acid Spitter","Black Tiger","Tarantox","Armogohma","Venigohma","Airnogohma"});
+	private List<String> Names = Arrays.asList(new String[] { "Queen Widow", "Venom", "Lady Arachnai", "Acid Spitter", "Black Tiger", "Tarantox", "Armogohma", "Venigohma", "Airnogohma" });
 	private String Name = "Queen Widow";
 	private int HP = 700;
 
@@ -27,7 +27,7 @@ public class Queen_Widow extends Boss
 	{
 		this.Name = Names.get(new Random().nextInt(Names.size()));
 	}
-	
+
 	@Override
 	public String getName()
 	{

@@ -204,10 +204,6 @@ public class MobSpawnEvent implements Listener
 				this.MobChanger.SetMob(Event.getEntity(), "Horse", ((Damageable) Event.getEntity()).getHealth(), ((Damageable) Event.getEntity()).getMaxHealth(), true);
 				break;
 			case UNKNOWN:
-				if (HorseModifier.isHorse(Event.getEntity()))
-				{
-					this.MobChanger.SetMob(Event.getEntity(), "Horse", ((Damageable) Event.getEntity()).getHealth(), ((Damageable) Event.getEntity()).getMaxHealth(), true);
-				}
 				break;
 			default:
 				this.MobChanger.ModifyMob(Event.getEntity());

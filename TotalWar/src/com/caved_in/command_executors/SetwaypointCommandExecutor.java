@@ -10,29 +10,31 @@ import com.caved_in.TotalWar;
 
 public class SetwaypointCommandExecutor implements CommandExecutor
 {
-	public SetwaypointCommandExecutor() { }
-	
+	public SetwaypointCommandExecutor()
+	{
+	}
+
 	@Override
 	public boolean onCommand(CommandSender Sender, Command Cmd, String Label, String[] Args)
 	{
 		if (Sender instanceof Player)
 		{
-			Player Player = (Player)Sender;
+			Player Player = (Player) Sender;
 			if (TotalWar.permission.has(Player, "TotalWar.Waypoints"))
 			{
 				if (Args.length >= 2)
 				{
 					String NPC = Args[0];
 					String WarpName = "";
-					for(int I = 1; I < Args.length; I++)
+					for (int I = 1; I < Args.length; I++)
 					{
 						WarpName += Args[I] + "_";
 					}
 					String World = Player.getWorld().getName();
-					int X = (int)Player.getLocation().getX();
-					int Y = (int)Player.getLocation().getY();
-					int Z = (int)Player.getLocation().getZ();
-					if (TotalWar.Waypoints.WriteNPCData(NPC, WarpName, new int[] {X,Y,Z},World) == true)
+					int X = (int) Player.getLocation().getX();
+					int Y = (int) Player.getLocation().getY();
+					int Z = (int) Player.getLocation().getZ();
+					if (TotalWar.Waypoints.WriteNPCData(NPC, WarpName, new int[] { X, Y, Z }, World) == true)
 					{
 						Player.sendMessage(ChatColor.GOLD + "You've created the waypoint '" + WarpName + "' for the NPC: " + NPC);
 						return true;

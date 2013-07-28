@@ -1,4 +1,4 @@
-package com.caved_in.Config;
+package com.caved_in.Config.Markup;
 
 import java.io.File;
 import java.io.IOException;

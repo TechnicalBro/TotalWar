@@ -40,6 +40,7 @@ public class UpdateInventories
 		}
 	}
 
+	/*
 	public void UpdateEventBooks()
 	{
 		for (Player P : this.Plugin.getServer().getOnlinePlayers())
@@ -58,6 +59,7 @@ public class UpdateInventories
 		GiveEventBook(P);
 	}
 
+	
 	public void GiveEventBook(Player P)
 	{
 		ItemStack NewEventBook = new ItemStack(Material.WRITTEN_BOOK);
@@ -73,6 +75,7 @@ public class UpdateInventories
 		P.updateInventory();
 		TotalWar.BookManager.setUpdated(P.getName(), Long.valueOf(System.currentTimeMillis()));
 	}
+	*/
 
 	public void RemoveEventBooks(Player P)
 	{
@@ -143,8 +146,3 @@ public class UpdateInventories
 		}
 	}
 }
-
-/*
- * Location: C:\Users\Brandon\Desktop\TotalWar.jar Qualified Name:
- * com.caved_in.Runnables.UpdateInventories JD-Core Version: 0.6.2
- */

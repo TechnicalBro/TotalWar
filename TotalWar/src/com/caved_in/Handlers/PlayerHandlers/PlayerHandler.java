@@ -30,25 +30,11 @@ public class PlayerHandler
 		}
 		return Faction.None;
 	}
-
-	/*
-	 * public String getPlayerFactionPerm(Player Player) { if
-	 * (TotalWar.permission.has(Player, "Templar")) { return "Totalwar.Templar";
-	 * } else if (TotalWar.permission.has(Player, "Pagan")) { return
-	 * "Totalwar.Pagan"; } else if (TotalWar.permission.has(Player,
-	 * "Totalwar.Pirate")) { return "Totalwar.Pirate"; } else if
-	 * (TotalWar.permission.has(Player, "Totalwar.Dragonkin")) { return
-	 * "Totalwar.Dragonkin"; } return null; }
-	 */
+	
 	public boolean isSameFaction(Player PlayerOne, Player PlayerTwo)
 	{
 		return getPlayerFaction(PlayerOne) == getPlayerFaction(PlayerTwo);
 	}
-
-	/*
-	 * public boolean isSameFactionPerm(Player PlayerOne, Player PlayerTwo) {
-	 * return }
-	 */
 
 	public Faction getFaction(String Name)
 	{

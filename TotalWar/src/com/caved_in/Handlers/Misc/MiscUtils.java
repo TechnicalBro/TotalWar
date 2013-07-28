@@ -254,8 +254,3 @@ public class MiscUtils
 		return yaml;
 	}
 }
-
-/*
- * Location: C:\Users\Brandon\Desktop\TotalWar.jar Qualified Name:
- * com.caved_in.Handlers.Misc.MiscUtils JD-Core Version: 0.6.2
- */

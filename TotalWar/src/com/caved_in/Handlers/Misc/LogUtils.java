@@ -109,8 +109,3 @@ public class LogUtils
 		return message == null ? e.getMessage() : ChatColor.stripColor(message);
 	}
 }
-
-/*
- * Location: C:\Users\Brandon\Desktop\TotalWar.jar Qualified Name:
- * com.caved_in.Handlers.Misc.LogUtils JD-Core Version: 0.6.2
- */

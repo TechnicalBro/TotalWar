@@ -1,11 +1,10 @@
 package com.caved_in;
 
 import com.caved_in.CitizenTraits.TraitRegister;
-import com.caved_in.Config.JailConfig;
-import com.caved_in.Config.MobDroprateConfig;
-import com.caved_in.Config.PVPConfig;
-import com.caved_in.Config.PluginConfig;
-import com.caved_in.Config.WarpsConfig;
+import com.caved_in.Config.Markup.WarpsConfig;
+import com.caved_in.Config.YML.JailConfig;
+import com.caved_in.Config.YML.MobDroprateConfig;
+import com.caved_in.Config.YML.PluginConfig;
 import com.caved_in.CraftingRecipes.Recipes;
 import com.caved_in.Events.Events;
 import com.caved_in.Handlers.BookHandlers.BookUpdater;
@@ -21,6 +20,7 @@ import com.caved_in.Items.Gem;
 import com.caved_in.Runnables.Runnables;
 import com.caved_in.Runnables.UpdateInventories;
 import com.caved_in.command_executors.Commands;
+import com.caved_in.Config.Markup.*;
 
 import java.io.File;
 
@@ -39,7 +39,7 @@ public class TotalWar extends JavaPlugin
 {
 	public static Economy economy = null;
 	public static Permission permission = null;
-	
+
 	public static final String Default_World_Name = "PaganTemplar";
 	public static final String Donator_Permission = "TotalWar.Donator";
 	public static final String Dungeon_Maker_Permission = "TotalWar.DungeonKeep";
@@ -58,22 +58,20 @@ public class TotalWar extends JavaPlugin
 	public static final String Dragonkin_Group_Name = "DragonKin";
 	public static final String Pirate_Group_Name = "Pirate";
 	public static final String War_Config_Name = "War.yml";
-	
-	public static PVPConfig PVP_Config;
+
 	public static JailConfig Jail_Config;
 	public static MobDroprateConfig Mob_Drops;
 	public static PluginConfig Plugin_Config;
 	public static AreaDynamicsHandler EventDynamics = new AreaDynamicsHandler();
-	public static BookUpdater BookManager;
 	public static ItemHandler ItemNamer = new ItemHandler();
 	public static PlayerHandler PlayerHandler;
 	public static UpdateInventories InventoryUpdater;
 	public static DataHandler PlayersWhoveJoinedHandler;
 	public static WarpsConfig Waypoints;
+	public static NpcTraitConfig NpcTraitConfig;
 
 	public static boolean Debug = true;
 	public static boolean WarTimeMOTD = true;
-	// public static Banger Banger = new Banger("", Material.DIAMOND_SWORD);
 	public static Gem Gem = new Gem("", Material.EMERALD);
 	public static ScoreboardHandler SBMan;
 	public static MOTDHandler MotdHandler;
@@ -92,11 +90,9 @@ public class TotalWar extends JavaPlugin
 		PlayersWhoveJoinedHandler = new DataHandler(getDataFolder() + File.separator + "PlayersList.txt");
 		Waypoints = new WarpsConfig(getDataFolder() + File.separator + "Warps.txt");
 		MotdHandler = new MOTDHandler(getDataFolder() + File.separator + "Motd.txt");
+		NpcTraitConfig = new NpcTraitConfig(getDataFolder() + File.separator + "TraitCache.txt");
 		SBMan = new ScoreboardHandler(this);
-		// if (WarConfig.isWarOn() == true)
-		// {
-		// SBMan.ShowWarboard(false);
-		// }
+		
 		new Events(this);
 		new TraitRegister();
 		new Runnables(this);
@@ -104,9 +100,7 @@ public class TotalWar extends JavaPlugin
 		setupPermissions();
 		new Commands(this);
 		new Recipes(this);
-		BookManager = new BookUpdater(Long.valueOf(System.currentTimeMillis()));
 		AddEvents(Plugin_Config.getEventAmout());
-		// EventDynamics.UpdateBooks();
 		InventoryUpdater = new UpdateInventories(this);
 		PlayerHandler = new PlayerHandler(this);
 		Bukkit.getWorld(Default_World_Name).setPVP(true);

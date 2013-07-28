@@ -5,11 +5,12 @@ import com.caved_in.TotalWarItems.Handlers.ItemStackHandler.Tier;
 import com.rit.sucy.EnchantmentAPI;
 
 import java.io.File;
+import java.util.Map.Entry;
 import java.util.Random;
 
 import com.caved_in.TotalWar;
-import com.caved_in.Config.MobDroprateConfig;
-import com.caved_in.Config.PluginConfig;
+import com.caved_in.Config.YML.MobDroprateConfig;
+import com.caved_in.Config.YML.PluginConfig;
 import com.caved_in.Handlers.PlayerHandlers.PlayerHandler.Faction;
 import com.caved_in.Items.ArcaneGem;
 import com.caved_in.Items.ArmorGem;
@@ -18,6 +19,9 @@ import com.caved_in.Items.GemPackGem;
 import com.caved_in.Items.GemPlus;
 
 import me.cybermaxke.materialapi.inventory.CustomItemStack;
+import net.citizensnpcs.api.CitizensAPI;
+import net.citizensnpcs.api.npc.NPC;
+import net.citizensnpcs.api.trait.Trait;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -51,53 +55,6 @@ public class ToggleWarCommandExecutor implements CommandExecutor
 			String Subcommand = args[0];
 			switch (Subcommand)
 			{
-			/*
-			 * case "on": case "true": { if (sender.isOp()) {
-			 * TotalWar.WarConfig.setWar(true); if
-			 * (TotalWar.WarConfig.isWarOn()) {
-			 * //TotalWar.SBMan.ShowWarboard(true); } else {
-			 * TotalWar.SBMan.ShowWarboard(false); }
-			 * this.TotalWarWorld.setDifficulty(Difficulty.HARD);
-			 * this.TotalWarWorld.setPVP(true); for (Player P :
-			 * this.Plugin.getServer().getOnlinePlayers()) { if
-			 * ((P.getGameMode() == GameMode.CREATIVE) && (!P.isOp())) {
-			 * P.setGameMode(GameMode.SURVIVAL); } P.playSound(P.getLocation(),
-			 * Sound.ENDERDRAGON_DEATH, 1.0F, 1.0F); }
-			 * BroadCast("&CTHE WAR HAS BEGUN!"); return true; } else {
-			 * sender.sendMessage
-			 * ("You don't have permission to do this, sorry"); return false; }
-			 * } case "off": case "false": { if (sender.isOp()) {
-			 * TotalWar.WarConfig.setWar(false); TotalWar.SBMan.HideWarboard();
-			 * this.TotalWarWorld.setDifficulty(Difficulty.EASY);
-			 * this.TotalWarWorld.setPVP(false);
-			 * BroadCast("&CTHE WAR IS OVER, LETS HOPE YOU MADE YOUR FACTION PROUD"
-			 * ); for (Player P : this.Plugin.getServer().getOnlinePlayers()) {
-			 * if ((P.getGameMode() == GameMode.CREATIVE) && (!P.isOp())) {
-			 * P.setGameMode(GameMode.SURVIVAL); } P.playSound(P.getLocation(),
-			 * Sound.ENDERDRAGON_DEATH, 1.0F, 1.0F); } return true; } else {
-			 * sender
-			 * .sendMessage("You don't have permission to do this, sorry");
-			 * return false; } } case "toggle": { if (sender.isOp()) { if
-			 * (TotalWar.WarConfig.canToggle()) {
-			 * TotalWar.WarConfig.toggleWar(); if (TotalWar.WarConfig.isWarOn()
-			 * == true) { TotalWar.SBMan.ShowWarboard(true);
-			 * this.TotalWarWorld.setDifficulty(Difficulty.HARD);
-			 * this.TotalWarWorld.setPVP(true); for (Player P :
-			 * this.Plugin.getServer().getOnlinePlayers()) { if
-			 * ((P.getGameMode() == GameMode.CREATIVE) && (!P.isOp())) {
-			 * P.setGameMode(GameMode.SURVIVAL); } P.playSound(P.getLocation(),
-			 * Sound.ENDERDRAGON_DEATH, 1.0F, 1.0F); }
-			 * BroadCast("&CTHE WAR HAS BEGUN!"); return true; } else {
-			 * TotalWar.SBMan.HideWarboard();
-			 * this.TotalWarWorld.setDifficulty(Difficulty.NORMAL);
-			 * this.TotalWarWorld.setPVP(false);
-			 * BroadCast("&CTHE WAR IS OVER, LETS HOPE YOU MADE YOUR FACTION PROUD"
-			 * ); for (Player P : this.Plugin.getServer().getOnlinePlayers()) {
-			 * P.playSound(P.getLocation(), Sound.ENDERDRAGON_DEATH, 1.0F,
-			 * 1.0F); } return true; } } else { return true; } } else {
-			 * sender.sendMessage("You don't have permissions to do this");
-			 * return false; } }
-			 */
 			case "reload":
 				{
 					if (sender.isOp())
@@ -112,6 +69,34 @@ public class ToggleWarCommandExecutor implements CommandExecutor
 						return false;
 					}
 				}
+			case "loadtraits":
+			{
+				if (sender.isOp())
+				{
+					for(Entry<Integer, String> Pair : TotalWar.NpcTraitConfig.getData().entrySet())
+					{
+						NPC Npc = CitizensAPI.getNPCRegistry().getById(Pair.getKey());
+						if (Npc != null)
+						{
+							try
+							{
+								Trait Trait = CitizensAPI.getTraitFactory().getTrait(Pair.getValue());
+								if (!Npc.hasTrait(Trait.getClass()))
+								{
+									Npc.addTrait(Trait);
+									TotalWar.Console("Loaded the cached trait " + Trait.getName() + " for " + Npc.getName());
+								}
+							}
+							catch (Exception Ex)
+							{
+								Ex.printStackTrace();
+							}
+						}
+					}
+					return true;
+				}
+				return false;
+			}
 			case "newevents":
 				{
 					if (sender.isOp())

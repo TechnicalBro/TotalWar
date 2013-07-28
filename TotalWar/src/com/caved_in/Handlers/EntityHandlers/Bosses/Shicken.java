@@ -15,7 +15,7 @@ import com.caved_in.Handlers.EntityHandlers.BossHandler.BossType;
 
 public class Shicken extends Boss
 {
-	private List<String> Names = Arrays.asList(new String[] { "Shicken","The Poultry Pounder","Mother Clucker", "Holy Cluck","Unholy Cluck","Gobbler","Tough Clucker", "Badass Mother Clucker","Silent Bwak","Fury Beak"});
+	private List<String> Names = Arrays.asList(new String[] { "Shicken", "The Poultry Pounder", "Mother Clucker", "Holy Cluck", "Unholy Cluck", "Gobbler", "Tough Clucker", "Badass Mother Clucker", "Silent Bwak", "Fury Beak" });
 	private String Name = "Shicken";
 	private int MaxHP = 400;
 
@@ -31,7 +31,7 @@ public class Shicken extends Boss
 	{
 		this.Name = Names.get(new Random().nextInt(Names.size()));
 	}
-	
+
 	@Override
 	public String getName()
 	{

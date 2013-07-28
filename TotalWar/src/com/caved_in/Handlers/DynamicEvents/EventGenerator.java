@@ -29,25 +29,25 @@ public class EventGenerator
 		switch (Random.nextInt(4))
 		{
 		case 0:
-			Event = new AreaEvent(AreaEvent.EventType.KILL_MOB, new Random().nextInt(50) + new Random().nextInt(16));
+			Event = new AreaEvent(AreaEvent.EventType.KILL_MOB, new Random().nextInt(20) + new Random().nextInt(16));
 			Event.setEntityType(generateEntityType());
 			break;
 		case 1:
 			Event = new AreaEvent(AreaEvent.EventType.BOSS_HUNT, generateBoss());
 			break;
 		case 2:
-			Event = new AreaEvent(AreaEvent.EventType.BREAK_BLOCK, 1 + new Random().nextInt(120) + new Random().nextInt(20), generateMaterial());
+			Event = new AreaEvent(AreaEvent.EventType.BREAK_BLOCK, 1 + new Random().nextInt(32) + new Random().nextInt(32), generateMaterial());
 			break;
 		case 3:
 			Event = new AreaEvent(AreaEvent.EventType.CRAFT, this.generateCraftAmount(), this.generateCraft());
 			break;
 		default:
-			Event = new AreaEvent(AreaEvent.EventType.KILL_MOB, new Random().nextInt(50) + new Random().nextInt(15));
+			Event = new AreaEvent(AreaEvent.EventType.KILL_MOB, new Random().nextInt(20) + new Random().nextInt(16));
 			Event.setEntityType(generateEntityType());
 			break;
 		}
-
 		Event.setEventNPC(generateNpc());
+		Event.setRequestText(TotalWar.EventDynamics.getEventText(Event));
 		return Event;
 	}
 

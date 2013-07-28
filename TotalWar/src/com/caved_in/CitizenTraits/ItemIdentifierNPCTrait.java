@@ -114,7 +114,6 @@ public class ItemIdentifierNPCTrait extends Trait
 					DamageMax += 13 + new Random().nextInt(10);
 					DamageMax += new Random().nextInt(dRange);
 					Damages = ChatColor.RED + "Deals " + DamageMin + " to " + DamageMax + " damage!";
-					// eDamage = DamageMin + new Random().nextInt(dRange + 1);
 					break;
 				}
 			}
@@ -196,7 +195,11 @@ public class ItemIdentifierNPCTrait extends Trait
 	@Override
 	public void onAttach()
 	{
-
+		if (!TotalWar.NpcTraitConfig.hasData(this.getNPC().getId()))
+		{
+			TotalWar.NpcTraitConfig.WriteData(this.getNPC().getId(), "appraiser");
+			TotalWar.Console("Cached the appraiser trait for " + this.getNPC().getName());
+		}
 	}
 
 	@Override
@@ -211,7 +214,11 @@ public class ItemIdentifierNPCTrait extends Trait
 	@Override
 	public void onSpawn()
 	{
-
+		if (!TotalWar.NpcTraitConfig.hasData(this.getNPC().getId()))
+		{
+			TotalWar.NpcTraitConfig.WriteData(this.getNPC().getId(), "appraiser");
+			TotalWar.Console("Cached the appraiser trait for " + this.getNPC().getName());
+		}
 	}
 
 	// run code when the NPC is removed. Use this to tear down any repeating

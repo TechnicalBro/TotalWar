@@ -136,12 +136,6 @@ public class MobDeath implements Listener
 			{
 				CheckMobEvents(Event.getEntity(), Event.getEntity().getKiller());
 			}
-			/*
-			 * if (new Random().nextInt(100) <= new Random().nextInt(15)) {
-			 * TotalWar.economy
-			 * .depositPlayer(Event.getEntity().getKiller().getName(), 2 + new
-			 * Random().nextInt(10)); }
-			 */
 		}
 	}
 
@@ -154,7 +148,7 @@ public class MobDeath implements Listener
 				TotalWar.Console("Player [" + Player.getName() + "] Killed Boss [" + e.getBossName() + "]");
 				if ((!TotalWar.EventDynamics.hasBeenRewarded(e, Player.getName())) && (!TotalWar.EventDynamics.isPlayerCompleted(e, Player.getName())))
 				{
-					TotalWar.Console("Player [" + Player.getName() + "] Hasn't been rewarded for killing [" + e.getBossName() + "]");
+					//TotalWar.Console("Player [" + Player.getName() + "] Hasn't been rewarded for killing [" + e.getBossName() + "]");
 					TotalWar.EventDynamics.addPlayerProgress(e, Player.getName());
 				}
 			}
@@ -168,7 +162,7 @@ public class MobDeath implements Listener
 			TotalWar.Console("Player [" + Player.getName() + "] Killed Event Mob [" + e.getEntityType().toString() + "]");
 			if ((!TotalWar.EventDynamics.hasBeenRewarded(e, Player.getName())) && (!TotalWar.EventDynamics.isPlayerCompleted(e, Player.getName())))
 			{
-				TotalWar.Console("Player [" + Player.getName() + "] Hasn't been rewarded for killing Event Mob [" + e.getEntityType().toString() + "]");
+				//TotalWar.Console("Player [" + Player.getName() + "] Hasn't been rewarded for killing Event Mob [" + e.getEntityType().toString() + "]");
 				TotalWar.EventDynamics.addPlayerProgress(e, Player.getName());
 			}
 		}

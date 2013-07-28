@@ -5,7 +5,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.server.ServerListPingEvent;
 
 import com.caved_in.TotalWar;
-import com.caved_in.Handlers.Misc.MOTDHandler;
 
 public class ServerListPing implements Listener
 {

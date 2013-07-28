@@ -10,12 +10,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.material.MaterialData;
 
 public class TamingItem extends MenuItem
-{	
+{
 	public TamingItem(String ItemName, MaterialData mData, List<String> Lore)
 	{
-		super(ItemName,mData);
+		super(ItemName, mData);
 		List<String> LoreLines = new ArrayList<String>();
-		for(String S : Lore)
+		for (String S : Lore)
 		{
 			LoreLines.add(ChatColor.YELLOW + S);
 		}
@@ -25,6 +25,6 @@ public class TamingItem extends MenuItem
 	@Override
 	public void onClick(Player arg0)
 	{
-		
+
 	}
 }

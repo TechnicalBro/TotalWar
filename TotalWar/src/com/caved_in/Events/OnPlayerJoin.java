@@ -45,7 +45,9 @@ public class OnPlayerJoin implements Listener
 			Player.getInventory().addItem(new ItemStack[] { new ItemStack(Material.APPLE, 1) });
 			Player.getInventory().addItem(new ItemStack[] { new ItemStack(Material.BREAD, 1) });
 		}
+		
 		TotalWar.EventDynamics.putPlayerInAllEvents(Player.getName());
+		
 		if (TotalWar.permission.has(Player, "Totalwar.Pagan"))
 		{
 			NametagAPI.setNametagSoft(Player.getName(), "", " the Pagan");
@@ -62,6 +64,5 @@ public class OnPlayerJoin implements Listener
 		{
 			NametagAPI.setNametagSoft(Player.getName(), "", " the Templar");
 		}
-		// TotalWar.InventoryUpdater.UpdatePlayerEventBook(Player);
 	}
 }

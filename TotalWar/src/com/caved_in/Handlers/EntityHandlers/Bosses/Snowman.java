@@ -30,7 +30,7 @@ public class Snowman extends Boss
 	public void onDeath()
 	{
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -44,7 +44,7 @@ public class Snowman extends Boss
 	public void setEntityID(int ID)
 	{
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override

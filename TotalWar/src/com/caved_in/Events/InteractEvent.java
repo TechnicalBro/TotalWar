@@ -40,52 +40,53 @@ public class InteractEvent implements Listener
 	public void PlayerInteract(PlayerInteractEvent Event)
 	{
 		Player Player = Event.getPlayer();
-		if (Player.getItemInHand() == null || Player.getItemInHand().getType() == Material.AIR)
+		if (Event.getAction() == Action.RIGHT_CLICK_AIR || Event.getAction() == Action.RIGHT_CLICK_BLOCK)
 		{
-			if (Event.getAction() == Action.RIGHT_CLICK_AIR || Event.getAction() == Action.RIGHT_CLICK_BLOCK)
+			if (Player.getItemInHand() == null || Player.getItemInHand().getType() == Material.AIR)
 			{
 				if (this.Gem_Handling.containsKey(Player.getName()))
 				{
 					this.Gem_Handling.remove(Player.getName());
-				}
-			}
-		}
-		if ((Player.getItemInHand() != null) && (!this.GemCool.IsOnCooldown(Player.getName())))
-		{
-			if (new GemCraft().isGem(Player.getItemInHand()))
-			{
-				if ((Event.getAction() == Action.RIGHT_CLICK_AIR) || (Event.getAction() == Action.RIGHT_CLICK_BLOCK))
-				{
-					if (this.Gem_Handling.containsKey(Player.getName()) && this.Gem_Handling.get(Player.getName()).isSameGem(Player.getItemInHand(), Player.getInventory().getHeldItemSlot()))
-					{
-						return;
-					}
-					else if (!this.Gem_Handling.containsKey(Player.getName()))
-					{
-						this.Gem_Handling.put(Player.getName(), new GemCraft(Player.getName(), Player.getInventory().getHeldItemSlot(), Player.getItemInHand().getItemMeta().getDisplayName()));
-						this.GemCool.SetOnCooldown(Player.getName());
-						return;
-					}
-					else
-					{
-						Handle_GemCraft(Player);
-						this.GemCool.SetOnCooldown(Player.getName());
-						return;
-					}
-				}
-				else if (!MessageCool.IsOnCooldown(Player.getName()))
-				{
-					Player.sendMessage(ChatColor.RED + "Left click the gem, then the item ;)");
-					MessageCool.SetOnCooldown(Player.getName());
 					return;
 				}
-			}
-			else
-			{
-				// TotalWar.Console("Handling Gem");
-				Handle_GemCraft(Player);
-				this.GemCool.SetOnCooldown(Player.getName());
 				return;
+			}
+			else if ((Player.getItemInHand() != null) && (!this.GemCool.IsOnCooldown(Player.getName())))
+			{
+				if (new GemCraft().isGem(Player.getItemInHand()))
+				{
+					if ((Event.getAction() == Action.RIGHT_CLICK_AIR) || (Event.getAction() == Action.RIGHT_CLICK_BLOCK))
+					{
+						if (this.Gem_Handling.containsKey(Player.getName()) && this.Gem_Handling.get(Player.getName()).isSameGem(Player.getItemInHand(), Player.getInventory().getHeldItemSlot()))
+						{
+							return;
+						}
+						else if (!this.Gem_Handling.containsKey(Player.getName()))
+						{
+							this.Gem_Handling.put(Player.getName(), new GemCraft(Player.getName(), Player.getInventory().getHeldItemSlot(), Player.getItemInHand().getItemMeta().getDisplayName()));
+							this.GemCool.SetOnCooldown(Player.getName());
+							return;
+						}
+						else
+						{
+							Handle_GemCraft(Player);
+							this.GemCool.SetOnCooldown(Player.getName());
+							return;
+						}
+					}
+					else if (!MessageCool.IsOnCooldown(Player.getName()))
+					{
+						Player.sendMessage(ChatColor.RED + "Left click the gem, then the item ;)");
+						MessageCool.SetOnCooldown(Player.getName());
+						return;
+					}
+				}
+				else
+				{
+					Handle_GemCraft(Player);
+					this.GemCool.SetOnCooldown(Player.getName());
+					return;
+				}
 			}
 		}
 	}

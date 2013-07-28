@@ -1,4 +1,4 @@
-package com.caved_in.Config;
+package com.caved_in.Config.YML;
 
 import com.caved_in.Handlers.PlayerHandlers.PlayerHandler;
 

@@ -19,12 +19,9 @@ import org.bukkit.material.Coal;
 
 import com.caved_in.TotalWar;
 import com.caved_in.Cooldown.Cooldown;
-import com.caved_in.Handlers.DynamicEvents.AreaEvent;
 
 public class BreakBlock implements Listener
 {
-	// private Material[] BlocksEnumerate = { Material.COAL_ORE,
-	// Material.LEAVES, Material.LOG, Material.WOOD, Material.FURNACE };
 	private List<Material> Blocks = Arrays.asList(new Material[] { Material.COAL_ORE, Material.LEAVES, Material.LOG, Material.WOOD, Material.FURNACE });
 	private int LEAVES_CHANCES = 2;
 	private int COAL_CHANCE = 3;
@@ -36,9 +33,6 @@ public class BreakBlock implements Listener
 	public BreakBlock(TotalWar Plugin)
 	{
 		Plugin.getServer().getPluginManager().registerEvents(this, Plugin);
-		/*
-		 * for (Material Mat : this.BlocksEnumerate) { this.Blocks.add(Mat); }
-		 */
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)
@@ -52,8 +46,6 @@ public class BreakBlock implements Listener
 		{
 			if (this.Blocks.contains(Event.getBlock().getType()))
 			{
-				// CheckForEvents(Event.getBlock().getType(),
-				// Event.getPlayer());
 				switch (Event.getBlock().getType())
 				{
 				case FURNACE:
@@ -73,21 +65,6 @@ public class BreakBlock implements Listener
 					HandleWood(Event.getBlock(), Event.getPlayer());
 					break;
 				default:
-					break;
-				}
-			}
-		}
-	}
-
-	private void CheckForEvents(Material Material, Player Player)
-	{
-		for (AreaEvent e : TotalWar.EventDynamics.getActiveEvents(AreaEvent.EventType.BREAK_BLOCK))
-		{
-			if (Material.equals(e.getEventMaterial()))
-			{
-				if ((!TotalWar.EventDynamics.hasBeenRewarded(e, Player.getName())) && (!TotalWar.EventDynamics.isPlayerCompleted(e, Player.getName())))
-				{
-					TotalWar.EventDynamics.addPlayerProgress(e, Player.getName());
 					break;
 				}
 			}

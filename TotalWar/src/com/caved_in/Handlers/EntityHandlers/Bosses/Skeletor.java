@@ -9,7 +9,7 @@ import com.caved_in.Handlers.EntityHandlers.BossHandler.BossType;
 
 public class Skeletor extends Boss
 {
-	private List<String> Names = Arrays.asList(new String[] { "Skeletor","Brutal Bones", "Brittle Bones","Skeletron","Necrobone","Bones","Old Bones","Calcimite"});
+	private List<String> Names = Arrays.asList(new String[] { "Skeletor", "Brutal Bones", "Brittle Bones", "Skeletron", "Necrobone", "Bones", "Old Bones", "Calcimite" });
 	private int MaxHealth = 650;
 	private String Name = "Skeletor";
 
@@ -19,7 +19,7 @@ public class Skeletor extends Boss
 	private Poison Poison = new Poison(30, 5);
 
 	private int EntityID = -1;
-	
+
 	public Skeletor()
 	{
 		this.Name = Names.get(new Random().nextInt(Names.size()));

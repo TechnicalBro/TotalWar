@@ -56,31 +56,6 @@ public class PlayerInteractedEntity implements Listener
 				}
 				return;
 			}
-
-			// if (((Event_Entity instanceof Player)) &&
-			// (Event_Player.getItemInHand().getType() == Material.IRON_FENCE))
-			// {
-			// HandleArrest(Event_Player, (Player) Event_Entity);
-			// return;
-			// }
-		}
-	}
-
-	public void HandleArrest(Player Guard, Player Clicked)
-	{
-		if (!TotalWar.PlayerHandler.isSameFaction(Guard, Clicked))
-		{
-			if (Clicked.getInventory().contains(Material.DIAMOND))
-			{
-				PlayerHandler.Faction GuardFaction = TotalWar.PlayerHandler.getPlayerFaction(Guard);
-				Guard.setItemInHand(TotalWar.ItemNamer.RemoveFromStack(Guard.getItemInHand(), 1));
-				Clicked.getInventory().clear();
-				double[] J_XYZ = TotalWar.Jail_Config.getJail(GuardFaction);
-				Clicked.teleport(new Location(Clicked.getWorld(), J_XYZ[0], J_XYZ[1], J_XYZ[2]), TeleportCause.PLUGIN);
-				Clicked.sendMessage(ChatColor.RED + "You've been jailed for having diamonds...");
-				return;
-			}
-			Guard.sendMessage(ChatColor.RED + Clicked.getName() + " has no diamonds, you can't arrest them!");
 		}
 	}
 }

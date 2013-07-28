@@ -285,11 +285,11 @@ public class AreaDynamicsHandler
 		}
 		return null;
 	}
-	
+
 	public List<AreaEvent> getEventsForNPC(int NPCID)
 	{
 		List<AreaEvent> Return = new ArrayList<AreaEvent>();
-		for(AreaEvent Event : this.Event_Progress.keySet())
+		for (AreaEvent Event : this.Event_Progress.keySet())
 		{
 			if (Event.getEventNPCID() == NPCID)
 			{

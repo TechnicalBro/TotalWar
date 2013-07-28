@@ -1,4 +1,4 @@
-package com.caved_in.Config;
+package com.caved_in.Config.YML;
 
 public class MobDroprateConfig
 {

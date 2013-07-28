@@ -30,7 +30,7 @@ public class BossAttackRunnable implements Runnable
 						{
 							if (At.Do(Entity))
 							{
-								TotalWar.Console("Boss with ID[" + Boss.getEntityID() + "] executed an attack");
+								//TotalWar.Console("Boss with ID[" + Boss.getEntityID() + "] executed an attack");
 								break;
 							}
 						}

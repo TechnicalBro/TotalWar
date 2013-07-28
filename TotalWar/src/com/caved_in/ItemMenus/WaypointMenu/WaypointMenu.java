@@ -1,7 +1,6 @@
 package com.caved_in.ItemMenus.WaypointMenu;
 
 import java.util.ArrayList;
-import me.xhawk87.PopupMenuAPI.MenuItem;
 import me.xhawk87.PopupMenuAPI.PopupMenu;
 import me.xhawk87.PopupMenuAPI.PopupMenuAPI;
 import org.bukkit.entity.Player;

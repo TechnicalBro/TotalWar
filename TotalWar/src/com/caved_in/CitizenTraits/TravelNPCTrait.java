@@ -18,7 +18,7 @@ public class TravelNPCTrait extends Trait
 	}
 
 	@EventHandler
-	public void EventNPC_Rightclick(NPCRightClickEvent Event)
+	public void travelnpc_Rightclick(NPCRightClickEvent Event)
 	{
 		if (!isThisNpc(Event.getNPC()))
 		{
@@ -68,6 +68,11 @@ public class TravelNPCTrait extends Trait
 	@Override
 	public void onAttach()
 	{
+		if (!TotalWar.NpcTraitConfig.hasData(this.getNPC().getId()))
+		{
+			TotalWar.NpcTraitConfig.WriteData(this.getNPC().getId(), "travelnpc");
+			TotalWar.Console("Cached the travelnpc trait for " + this.getNPC().getName());
+		}
 	}
 
 	@Override
@@ -78,6 +83,11 @@ public class TravelNPCTrait extends Trait
 	@Override
 	public void onSpawn()
 	{
+		if (!TotalWar.NpcTraitConfig.hasData(this.getNPC().getId()))
+		{
+			TotalWar.NpcTraitConfig.WriteData(this.getNPC().getId(), "travelnpc");
+			TotalWar.Console("Cached the travelnpc trait for " + this.getNPC().getName());
+		}
 	}
 
 	@Override

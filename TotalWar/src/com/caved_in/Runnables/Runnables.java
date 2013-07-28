@@ -6,10 +6,6 @@ public class Runnables
 {
 	public Runnables(TotalWar Plugin)
 	{
-		// Plugin.getServer().getScheduler().scheduleSyncRepeatingTask(Plugin,
-		// new UpdateInventoriesRunnable(), 0L, 800L);
-		// Plugin.getServer().getScheduler().scheduleSyncRepeatingTask(Plugin,
-		// new ReplaceEventsRunnable(), 216000L, 216000L);
 		Plugin.getServer().getScheduler().scheduleSyncRepeatingTask(Plugin, new DonateReminderRunnable(), 9000L, 28000L);
 		Plugin.getServer().getScheduler().scheduleSyncRepeatingTask(Plugin, new VoteReminder(), 14000L, 32000L);
 		Plugin.getServer().getScheduler().scheduleSyncRepeatingTask(Plugin, new UpdateHealthDisplayRunnable(), 60L, 40L);
