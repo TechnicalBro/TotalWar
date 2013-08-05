@@ -70,6 +70,24 @@ public class EntityHandler
 			EquipMob(Entity);
 		}
 	}
+	
+	public void Handle(LivingEntity Entity, boolean CustomNameVisible, boolean RemoveWhenFarAway, boolean Equipped, double MaximumHealth, double Health, boolean Name)
+	{
+		if (Name == true)
+		{
+			Entity.setCustomName(Entity.getType().getName() + "  " + ChatColor.WHITE + (int)(((Damageable)Entity).getMaxHealth()) + ChatColor.RED + "❤");
+		}
+		double MaxHealth = (int) Math.round(MaximumHealth);
+		double cHealth = (int) Math.round(Health);
+		Entity.setCustomNameVisible(CustomNameVisible);
+		Entity.setRemoveWhenFarAway(RemoveWhenFarAway);
+		Entity.setMaxHealth(MaxHealth);
+		Entity.setHealth(cHealth);
+		if (Equipped == true)
+		{
+			EquipMob(Entity);
+		}
+	}
 
 	public void MakeExtremeMob(Damageable Mob)
 	{

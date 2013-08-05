@@ -21,6 +21,7 @@ import com.caved_in.Runnables.Runnables;
 import com.caved_in.Runnables.UpdateInventories;
 import com.caved_in.command_executors.Commands;
 import com.caved_in.Config.Markup.*;
+import com.caved_in.Cooldown.GlobalCooldowns;
 
 import java.io.File;
 
@@ -64,12 +65,14 @@ public class TotalWar extends JavaPlugin
 	public static PluginConfig Plugin_Config;
 	public static AreaDynamicsHandler EventDynamics = new AreaDynamicsHandler();
 	public static ItemHandler ItemNamer = new ItemHandler();
-	public static PlayerHandler PlayerHandler;
+	public static PlayerHandler PlayerHandler = new PlayerHandler();
 	public static UpdateInventories InventoryUpdater;
 	public static DataHandler PlayersWhoveJoinedHandler;
 	public static WarpsConfig Waypoints;
 	public static NpcTraitConfig NpcTraitConfig;
-
+	
+	public static GlobalCooldowns Cooldowns = new GlobalCooldowns();
+	
 	public static boolean Debug = true;
 	public static boolean WarTimeMOTD = true;
 	public static Gem Gem = new Gem("", Material.EMERALD);
@@ -102,7 +105,6 @@ public class TotalWar extends JavaPlugin
 		new Recipes(this);
 		AddEvents(Plugin_Config.getEventAmout());
 		InventoryUpdater = new UpdateInventories(this);
-		PlayerHandler = new PlayerHandler(this);
 		Bukkit.getWorld(Default_World_Name).setPVP(true);
 	}
 

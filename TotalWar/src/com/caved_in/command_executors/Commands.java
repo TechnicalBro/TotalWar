@@ -6,7 +6,7 @@ public class Commands
 {
 	public Commands(TotalWar Plugin)
 	{
-		Plugin.getCommand("join").setExecutor(new TemplarPaganCommandExecutor(Plugin));
+		Plugin.getCommand("join").setExecutor(new JoinCommand());
 		Plugin.getCommand("totalwar").setExecutor(new ToggleWarCommandExecutor(Plugin));
 		Plugin.getCommand("itemgen").setExecutor(new ItemCommandExecutor());
 		Plugin.getCommand("stats").setExecutor(new StatsCommandExecutor());

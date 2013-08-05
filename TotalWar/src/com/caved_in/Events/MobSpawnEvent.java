@@ -23,7 +23,7 @@ import com.caved_in.Handlers.EntityHandlers.Bosses.BossWrapper;
 public class MobSpawnEvent implements Listener
 {
 	private EntityHandler MobChanger = new EntityHandler();
-	private Cooldown GiantSpawn = new Cooldown(600);
+	private Cooldown GiantSpawn = new Cooldown(120);
 
 	public MobSpawnEvent(TotalWar Plugin)
 	{
@@ -178,7 +178,8 @@ public class MobSpawnEvent implements Listener
 							if (SpawnedB == Biome.PLAINS || SpawnedB == Biome.FOREST)
 							{
 								LivingEntity Giant = (LivingEntity) L.getWorld().spawnEntity(L, EntityType.GIANT);
-								this.MobChanger.ModifyMob(Giant);
+								double HealthForGiant = (135 + (new Random().nextInt(150) + new Random().nextInt(150)));
+								this.MobChanger.Handle(Giant, true, false, true, HealthForGiant, HealthForGiant, true);
 								this.GiantSpawn.SetOnCooldown("G");
 							}
 						}

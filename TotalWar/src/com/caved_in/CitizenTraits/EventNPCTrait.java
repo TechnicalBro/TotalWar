@@ -32,6 +32,11 @@ public class EventNPCTrait extends Trait
 	{
 		if (Event.getClicker().isOp())
 		{
+			if (!isThisNpc(Event.getNPC()))
+			{
+				Event.setCancelled(true);
+				return;
+			}
 			CheckForEvents(Event.getClicker());
 		}
 		else
@@ -125,51 +130,54 @@ public class EventNPCTrait extends Trait
 
 	public void CheckForEvents(Player Player)
 	{
-		List<AreaEvent> Events = TotalWar.EventDynamics.getEventsForNPC(getNPC().getId());
+		List<AreaEvent> Events = TotalWar.EventDynamics.getActiveEvents();
 		for (AreaEvent Event : Events)
 		{
-			if (!TotalWar.EventDynamics.hasBeenRewarded(Event, Player.getName()))
+			if (isThisNpc(Event.getEventNPC()))
 			{
-				if (isMaterialEvent(Event))
+				if (!TotalWar.EventDynamics.hasBeenRewarded(Event, Player.getName()))
 				{
-					if (Player.getInventory().contains(Event.getEventMaterial()))
+					if (isMaterialEvent(Event))
 					{
-						RequirementWrapper Wrapper;
-						try
+						if (Player.getInventory().contains(Event.getEventMaterial()))
 						{
-							Wrapper = this.hasRequiredMaterials(Player, Event);
-							if (Wrapper.hasRequiredAmount())
+							RequirementWrapper Wrapper;
+							try
 							{
-								this.removeEventMaterials(Player, Event, Wrapper);
-								TotalWar.EventDynamics.setRewarded(Event, Player.getName(), true);
-								Event.GiveRewards(Player);
+								Wrapper = this.hasRequiredMaterials(Player, Event);
+								if (Wrapper.hasRequiredAmount())
+								{
+									this.removeEventMaterials(Player, Event, Wrapper);
+									TotalWar.EventDynamics.setRewarded(Event, Player.getName(), true);
+									Event.GiveRewards(Player);
+								}
+								else
+								{
+									Player.sendMessage(this.NpcText(getNPC().getName(), "You're making progress! I just need " + Wrapper.amountRemaining() + " more " + Event.getEventMaterial().name().toLowerCase().replace('_', ' ') + "!"));
+								}
 							}
-							else
+							catch (Exception e)
 							{
-								Player.sendMessage(this.NpcText(getNPC().getName(), "You're making progress! I just need " + Wrapper.amountRemaining() + " more " + Event.getEventMaterial().name().toLowerCase().replace('_', ' ') + "!"));
+								// SLOPPY AS FUCK Catch, but, needed
+								Player.sendMessage(ChatColor.RED + "[ERROR] You've found a bug in the events! Please tell Brandon what you did before you got this error so he can fix it!");
+								e.printStackTrace();
 							}
-						}
-						catch (Exception e)
-						{
-							// SLOPPY AS FUCK Catch, but, needed
-							Player.sendMessage(ChatColor.RED + "[ERROR] You've found a bug in the events! Please tell Brandon what you did before you got this error so he can fix it!");
-							e.printStackTrace();
 						}
 					}
-				}
-				else if (TotalWar.EventDynamics.isPlayerCompleted(Event, Player.getName()))
-				{
-					TotalWar.EventDynamics.setRewarded(Event, Player.getName(), true);
-					Event.GiveRewards(Player);
+					else if (TotalWar.EventDynamics.isPlayerCompleted(Event, Player.getName()))
+					{
+						TotalWar.EventDynamics.setRewarded(Event, Player.getName(), true);
+						Event.GiveRewards(Player);
+					}
+					else
+					{
+						Player.sendMessage(this.NpcText(Event.getEventNPC().getName(), Event.getRequestText()));
+					}
 				}
 				else
 				{
-					Player.sendMessage(this.NpcText(Event.getEventNPC().getName(), Event.getRequestText()));
+					Player.sendMessage(this.NpcText(Event.getNpcName(), "Thanks for all the help, " + Player.getName() + ", I really appreciate it!"));
 				}
-			}
-			else
-			{
-				Player.sendMessage(this.NpcText(Event.getNpcName(), "Thanks for all the help, " + Player.getName() + ", I really appreciate it!"));
 			}
 		}
 	}

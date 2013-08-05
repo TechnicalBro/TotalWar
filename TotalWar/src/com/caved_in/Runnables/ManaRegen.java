@@ -15,33 +15,40 @@ public class ManaRegen implements Runnable
 	@Override
 	public void run()
 	{
-		for (Player P : Bukkit.getOnlinePlayers())
+		try
 		{
-			int ManaPlus = 3;
-			for (ItemStack is : P.getInventory().getArmorContents())
+			for (Player P : Bukkit.getOnlinePlayers())
 			{
-				if (is != null)
+				int ManaPlus = 3;
+				for (ItemStack is : P.getInventory().getArmorContents())
 				{
-					ItemStack ArmorPiece = is.clone();
-					for (CustomEnchantment enchantment : EnchantmentAPI.getEnchantments(ArmorPiece).keySet())
+					if (is != null)
 					{
-						if (enchantment.name().equalsIgnoreCase("arcane enhancement"))
+						ItemStack ArmorPiece = is.clone();
+						for (CustomEnchantment enchantment : EnchantmentAPI.getEnchantments(ArmorPiece).keySet())
 						{
-							ManaPlus += 2;
+							if (enchantment.name().equalsIgnoreCase("arcane enhancement"))
+							{
+								ManaPlus += 2;
+							}
 						}
 					}
 				}
+	
+				if ((P.getLevel() + ManaPlus) < TotalWizard.MagicHandler.getMaxMana(P.getName()))
+				{
+					P.setLevel(P.getLevel() + ManaPlus);
+				}
+				else
+				{
+					P.setLevel(TotalWizard.MagicHandler.getMaxMana(P.getName()));
+				}
+	
 			}
-
-			if ((P.getLevel() + ManaPlus) < TotalWizard.MagicHandler.getMaxMana(P.getName()))
-			{
-				P.setLevel(P.getLevel() + ManaPlus);
-			}
-			else
-			{
-				P.setLevel(TotalWizard.MagicHandler.getMaxMana(P.getName()));
-			}
-
+		}
+		catch (Exception Ex)
+		{
+			
 		}
 	}
 

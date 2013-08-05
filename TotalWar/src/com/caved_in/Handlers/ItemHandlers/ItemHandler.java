@@ -98,12 +98,9 @@ public class ItemHandler
 	 */
 	public void setItemName(ItemStack Item, String Text)
 	{
-		if (Item.hasItemMeta())
-		{
-			ItemMeta iMeta = Item.getItemMeta();
-			iMeta.setDisplayName(Text);
-			Item.setItemMeta(iMeta);
-		}
+		ItemMeta iMeta = Item.getItemMeta();
+		iMeta.setDisplayName(Text);
+		Item.setItemMeta(iMeta);
 	}
 
 	/**

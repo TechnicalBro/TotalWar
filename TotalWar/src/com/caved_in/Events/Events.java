@@ -6,7 +6,7 @@ public class Events
 {
 	public Events(TotalWar Plugin)
 	{
-		Plugin.getServer().getPluginManager().registerEvents(new BreakBlock(Plugin), Plugin);
+		//Plugin.getServer().getPluginManager().registerEvents(new BreakBlock(Plugin), Plugin);
 		Plugin.getServer().getPluginManager().registerEvents(new DamageEnemy(Plugin), Plugin);
 		Plugin.getServer().getPluginManager().registerEvents(new InteractEvent(Plugin), Plugin);
 		Plugin.getServer().getPluginManager().registerEvents(new MobDeath(Plugin), Plugin);

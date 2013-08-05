@@ -346,23 +346,31 @@ public class ToggleWarCommandExecutor implements CommandExecutor
 						{
 							String PlayerName = args[1];
 							Player Player = Bukkit.getPlayer(PlayerName);
-							Player.getInventory().addItem(new CustomItemStack(new GemPackGem("", Material.EMERALD)).getItem());
-							Player.getInventory().addItem(new CustomItemStack(new ArmorGem("", Material.EMERALD)).getItem());
-							Player.getInventory().addItem(new CustomItemStack(new GemPackGem("", Material.EMERALD)).getItem());
-							Player.getInventory().addItem(new CustomItemStack(new ArmorGem("", Material.EMERALD)).getItem());
-							Player.getInventory().addItem(new CustomItemStack(new GemPackGem("", Material.EMERALD)).getItem());
-							if (new Random().nextInt(2) == 0)
+							if (Player != null)
 							{
-								Player.getInventory().addItem(new ArcaneGem().getItem());
+								Player.getInventory().addItem(new CustomItemStack(new GemPackGem("", Material.EMERALD)).getItem());
+								Player.getInventory().addItem(new CustomItemStack(new ArmorGem("", Material.EMERALD)).getItem());
+								Player.getInventory().addItem(new CustomItemStack(new GemPackGem("", Material.EMERALD)).getItem());
+								Player.getInventory().addItem(new CustomItemStack(new ArmorGem("", Material.EMERALD)).getItem());
+								Player.getInventory().addItem(new CustomItemStack(new GemPackGem("", Material.EMERALD)).getItem());
+								if (new Random().nextInt(2) == 0)
+								{
+									Player.getInventory().addItem(new ArcaneGem().getItem());
+								}
+								else
+								{
+									Player.getInventory().addItem(new CustomItemStack(new ArmorGem("", Material.EMERALD)).getItem());
+								}
+								Player.updateInventory();
+								TotalWar.Console("Gave " + Player.getName() + " a gem pack!");
+								Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "say " + Player.getName() + " just bought a gem crate, and got some AMAZING gems!");
+								Player.sendMessage(ChatColor.GREEN + "Big Brother - " + ChatColor.RED + "Enjoy your Gem Crate, " + Player.getName() + " <3");
 							}
 							else
 							{
-								Player.getInventory().addItem(new CustomItemStack(new ArmorGem("", Material.EMERALD)).getItem());
+								sender.sendMessage("Not a player; failsafe");
+								return false;
 							}
-							Player.updateInventory();
-							TotalWar.Console("Gave " + Player.getName() + " a gem pack!");
-							Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "say " + Player.getName() + " just bought a gem crate, and got some AMAZING gems!");
-							Player.sendMessage(ChatColor.GREEN + "Big Brother - " + ChatColor.RED + "Enjoy your Gem Crate, " + Player.getName() + " <3");
 						}
 						else
 						{

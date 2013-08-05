@@ -22,5 +22,6 @@
 	<classpathentry kind="lib" path="C:/Users/Brandon/Downloads/TotalWizard.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Brandon/Downloads/Vault.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Brandon/Downloads/Votifier (1).jar"/>
+	<classpathentry kind="lib" path="C:/Users/Brandon/Downloads/dynmap-api-1.8.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
