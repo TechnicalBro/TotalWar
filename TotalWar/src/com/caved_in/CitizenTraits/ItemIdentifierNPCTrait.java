@@ -94,6 +94,11 @@ public class ItemIdentifierNPCTrait extends Trait
 		ItemStack Hand = Player.getItemInHand();
 		switch (Hand.getType())
 		{
+		case WOOD_HOE:
+		case STONE_HOE:
+		case DIAMOND_HOE:
+		case IRON_HOE:
+		case GOLD_HOE:
 		case WOOD_SWORD:
 		case STONE_SWORD:
 		case IRON_SWORD:
@@ -109,6 +114,17 @@ public class ItemIdentifierNPCTrait extends Trait
 				{
 					int DamageMin = Integer.parseInt(StringUtils.substringBetween(S.toLowerCase(), "deals ", " to "));
 					int DamageMax = Integer.parseInt(StringUtils.substringBetween(S.toLowerCase(), " to ", " damage!"));
+					int dRange = DamageMax - DamageMin;
+					DamageMin += 3 + new Random().nextInt(10);
+					DamageMax += 13 + new Random().nextInt(10);
+					DamageMax += new Random().nextInt(dRange);
+					Damages = ChatColor.RED + "Deals " + DamageMin + " to " + DamageMax + " damage!";
+					break;
+				}
+				else
+				{
+					int DamageMin = 10;
+					int DamageMax = 30;
 					int dRange = DamageMax - DamageMin;
 					DamageMin += 3 + new Random().nextInt(10);
 					DamageMax += 13 + new Random().nextInt(10);

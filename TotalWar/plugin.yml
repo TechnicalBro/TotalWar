@@ -1,9 +1,9 @@
 name: TotalWar
 main: com.caved_in.TotalWar
-version: 1.0
+version: 1.1
 description: The "Main" framework for TGC's TotalWar
 author: Brandon_TGC
-depend: [Vault,MaterialAPI,Citizens,TotalWarItems,PopupMenuAPI,SkillSystem,Votifier,ChestRegen,TotalWizard,EnchantmentAPI,CosmeticEnchantments]
+depend: [Vault,MaterialAPI,Citizens,TotalWarItems,PopupMenuAPI,SkillSystem,Votifier,ChestRegen,TotalWizard,EnchantmentAPI,CosmeticEnchantments,FriendsChat,InputGui]
 commands:
    stats:
       description: View your, or another players stats!
@@ -25,3 +25,7 @@ commands:
       description: Used to add a new waypoint to an existing / new travel-npc
       usage: /<command> <Npc Name> <Warp Name>
       permission: op
+   menu:
+      description: Used to get a replacement menu selection paper
+      usage: /<command>
+      permission: TotalWar.player

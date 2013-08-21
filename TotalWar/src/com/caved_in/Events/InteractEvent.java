@@ -4,6 +4,7 @@ import com.caved_in.TotalWar;
 import com.caved_in.Cooldown.Cooldown;
 import com.caved_in.Handlers.FileHandler.DataHandler;
 import com.caved_in.Handlers.ItemHandlers.GemCraft;
+import com.caved_in.ItemMenus.MainMenu.MainMenu;
 import com.rit.sucy.CustomEnchantment;
 import com.rit.sucy.EnchantmentAPI;
 
@@ -30,6 +31,7 @@ public class InteractEvent implements Listener
 	HashMap<String, GemCraft> Gem_Handling = new HashMap<String, GemCraft>();
 	private Cooldown GemCool = new Cooldown(1);
 	private Cooldown MessageCool = new Cooldown(2);
+	private Cooldown MenuCool = new Cooldown(1);
 
 	public InteractEvent(TotalWar Plugin)
 	{
@@ -50,6 +52,15 @@ public class InteractEvent implements Listener
 					return;
 				}
 				return;
+			}
+			else if (Player.getItemInHand().getType() == Material.PAPER && Player.getItemInHand().hasItemMeta() && Player.getItemInHand().getItemMeta().hasDisplayName() && Player.getItemInHand().getItemMeta().getDisplayName().contains("Adventurers Toolkit"))
+			{
+				if (!this.MenuCool.IsOnCooldown(Player.getName()))
+				{
+					new MainMenu(Player);
+					this.MenuCool.SetOnCooldown(Player.getName());
+					return;
+				}
 			}
 			else if ((Player.getItemInHand() != null) && (!this.GemCool.IsOnCooldown(Player.getName())))
 			{

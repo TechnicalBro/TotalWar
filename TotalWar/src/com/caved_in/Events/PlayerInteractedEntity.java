@@ -13,10 +13,13 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 
+import FriendSystem.FriendsChat;
+
 import com.caved_in.TotalWar;
 import com.caved_in.Cooldown.Cooldown;
 import com.caved_in.Handlers.EffectHandlers.ParticleEffects;
 import com.caved_in.Handlers.PlayerHandlers.PlayerHandler;
+import com.caved_in.ItemMenus.PlayerMenu.PlayerMenu;
 
 public class PlayerInteractedEntity implements Listener
 {
@@ -36,25 +39,42 @@ public class PlayerInteractedEntity implements Listener
 		boolean isNPC = Event_Entity.hasMetadata("NPC");
 		if (!isNPC)
 		{
-			if ((Event_Player.getItemInHand().getType() == Material.RED_ROSE) && ((Event_Entity instanceof Player)))
+			if (((Event_Entity instanceof Player)))
 			{
-				if (!this.Hearts.IsOnCooldown(Event_Player.getName()))
+				if (Event_Player.getItemInHand().getType() == Material.RED_ROSE)
 				{
-					this.Particles = ParticleEffects.HEART;
-					Player RecievedRose = (Player) Event_Entity;
-					try
+					if (!this.Hearts.IsOnCooldown(Event_Player.getName()))
 					{
-						this.Particles.sendToAll(RecievedRose.getLocation(), new Random().nextFloat(), new Random().nextInt(5) + 4);
+						this.Particles = ParticleEffects.HEART;
+						Player RecievedRose = (Player) Event_Entity;
+						try
+						{
+							this.Particles.sendToAll(RecievedRose.getLocation(), new Random().nextFloat(), new Random().nextInt(5) + 4);
+						}
+						catch (Exception e)
+						{
+							e.printStackTrace();
+						}
+						Event_Player.setItemInHand(TotalWar.ItemNamer.RemoveFromStack(Event_Player.getItemInHand(), 1));
+						this.Hearts.SetOnCooldown(Event_Player.getName());
+						return;
 					}
-					catch (Exception e)
-					{
-						e.printStackTrace();
-					}
-					Event_Player.setItemInHand(TotalWar.ItemNamer.RemoveFromStack(Event_Player.getItemInHand(), 1));
-					this.Hearts.SetOnCooldown(Event_Player.getName());
 					return;
 				}
-				return;
+				else if (Event_Player.getItemInHand() == null || Event_Player.getItemInHand().getType() == Material.AIR)
+				{
+					try
+					{
+						if (Event_Player.isSneaking())
+						{
+							new PlayerMenu(Event_Player,((Player) Event_Entity).getName());
+						}
+					}
+					catch (Exception Ex)
+					{
+						
+					}
+				}
 			}
 		}
 	}

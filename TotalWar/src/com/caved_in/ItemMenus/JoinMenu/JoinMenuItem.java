@@ -1,4 +1,4 @@
-package com.caved_in.ItemMenus.MainMenu.JoinMenu;
+package com.caved_in.ItemMenus.JoinMenu;
 
 import java.util.Arrays;
 import java.util.List;

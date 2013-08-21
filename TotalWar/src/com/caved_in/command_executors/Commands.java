@@ -11,5 +11,6 @@ public class Commands
 		Plugin.getCommand("itemgen").setExecutor(new ItemCommandExecutor());
 		Plugin.getCommand("stats").setExecutor(new StatsCommandExecutor());
 		Plugin.getCommand("setwaypoint").setExecutor(new SetwaypointCommandExecutor());
+		Plugin.getCommand("menu").setExecutor(new FriendCommand());
 	}
 }

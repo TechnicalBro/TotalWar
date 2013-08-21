@@ -77,7 +77,7 @@ public class DamageEnemy implements Listener
 
 	private boolean HandlePVP(Player Attacker, Player Attacked)
 	{
-		if (TotalWar.PlayerHandler.isSameFaction(Attacker, Attacked))
+		if (TotalWar.PlayerHandler.isSameFaction(Attacker, Attacked) || (FriendSystem.FriendsChat.Friends.get(Attacker).getFriendsList().isFriendWith(Attacked.getName()) && FriendSystem.FriendsChat.Friends.get(Attacked).getFriendsList().isFriendWith(Attacker.getName())))
 		{
 			return true;
 		}

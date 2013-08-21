@@ -27,7 +27,7 @@ public class SkillsMenu
 			int ExpUntilLevel = EXPChart.getExpUntilNextLevel((int) pSkillData.getSkill(Skill).getExp(), (int) pSkillData.getSkill(Skill).getLevel());
 			SkillsMenuItems.add(new StatShowItem(Skill, Skills.SkillsMenu.getIcon(Skill), String.valueOf(pSkillData.getSkill(Skill).getLevel()), String.valueOf(ExpUntilLevel)));
 		}
-		this.SkillsGUI = PopupMenuAPI.createMenu(ChatColor.GOLD + "Current Stats!", (int) Math.ceil(SkillsMenuItems.size() / 9.0D));
+		this.SkillsGUI = PopupMenuAPI.createMenu("Current Stats!", (int) Math.ceil(SkillsMenuItems.size() / 9.0D));
 		for (int I = 0; I < SkillsMenuItems.size(); I++)
 		{
 			this.SkillsGUI.addMenuItem(SkillsMenuItems.get(I), I);
@@ -45,11 +45,36 @@ public class SkillsMenu
 			int ExpUntilLevel = EXPChart.getExpUntilNextLevel((int) pSkillData.getSkill(Skill).getExp(), (int) pSkillData.getSkill(Skill).getLevel());
 			SkillsMenuItems.add(new StatShowItem(StatsOf.getName(), Skill, Skills.SkillsMenu.getIcon(Skill), String.valueOf(pSkillData.getSkill(Skill).getLevel()), String.valueOf(ExpUntilLevel)));
 		}
-		this.SkillsGUI = PopupMenuAPI.createMenu(ChatColor.GOLD + pName + "'s Current Stats!", (int) Math.ceil(SkillsMenuItems.size() / 9.0D));
+		this.SkillsGUI = PopupMenuAPI.createMenu(pName + "'s Current Stats!", (int) Math.ceil(SkillsMenuItems.size() / 9.0D));
 		for (int I = 0; I < SkillsMenuItems.size(); I++)
 		{
 			this.SkillsGUI.addMenuItem(SkillsMenuItems.get(I), I);
 		}
 		this.SkillsGUI.openMenu(Viewer);
+	}
+	
+	public SkillsMenu() { }
+	
+	public PopupMenu getMenu()
+	{
+		return this.SkillsGUI;
+	}
+	
+	public PopupMenu getMenu(String Player)
+	{
+		String pName = Player;
+		ArrayList<StatShowItem> SkillsMenuItems = new ArrayList<StatShowItem>();
+		PlayerHandler pSkillData = Skills.getPlayerHandler(pName);
+		for (String Skill : this.SkillNames)
+		{
+			int ExpUntilLevel = EXPChart.getExpUntilNextLevel((int) pSkillData.getSkill(Skill).getExp(), (int) pSkillData.getSkill(Skill).getLevel());
+			SkillsMenuItems.add(new StatShowItem(Skill, Skills.SkillsMenu.getIcon(Skill), String.valueOf(pSkillData.getSkill(Skill).getLevel()), String.valueOf(ExpUntilLevel)));
+		}
+		this.SkillsGUI = PopupMenuAPI.createMenu("Current Stats!", (int) Math.ceil(SkillsMenuItems.size() / 9.0D));
+		for (int I = 0; I < SkillsMenuItems.size(); I++)
+		{
+			this.SkillsGUI.addMenuItem(SkillsMenuItems.get(I), I);
+		}
+		return this.SkillsGUI;
 	}
 }

@@ -7,7 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
-import com.caved_in.ItemMenus.MainMenu.JoinMenu.JoinMenu;
+import com.caved_in.ItemMenus.JoinMenu.JoinMenu;
 
 public class JoinCommand implements CommandExecutor
 {

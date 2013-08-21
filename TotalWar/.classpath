@@ -11,7 +11,7 @@
 	<classpathentry kind="lib" path="C:/Users/Brandon/Downloads/ChestRegen.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Brandon/Downloads/EnchantmentAPI.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Brandon/Downloads/NametagEdit.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Brandon/Downloads/PopupMenuAPI.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Brandon/Desktop/TunnelsSQL.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Brandon/Downloads/SkillSystem.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Brandon/Downloads/spigot-1.6.2-R0.1-SNAPSHOT (7).jar">
 		<attributes>
@@ -23,5 +23,8 @@
 	<classpathentry kind="lib" path="C:/Users/Brandon/Downloads/Vault.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Brandon/Downloads/Votifier (1).jar"/>
 	<classpathentry kind="lib" path="C:/Users/Brandon/Downloads/dynmap-api-1.8.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Brandon/Downloads/FriendSystem.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Brandon/Downloads/inputgui-dev-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Brandon/Downloads/PopupMenuAPI.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

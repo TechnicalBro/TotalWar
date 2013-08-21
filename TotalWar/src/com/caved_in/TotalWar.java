@@ -25,6 +25,7 @@ import com.caved_in.Cooldown.GlobalCooldowns;
 
 import java.io.File;
 
+import me.cybermaxke.inputgui.api.InputGuiAPI;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 
@@ -80,6 +81,8 @@ public class TotalWar extends JavaPlugin
 	public static MOTDHandler MotdHandler;
 
 	public static BossHandler BossHandler = new BossHandler();
+	
+	public static InputGuiAPI GUIAPI;
 
 	@Override
 	public void onEnable()
@@ -95,6 +98,7 @@ public class TotalWar extends JavaPlugin
 		MotdHandler = new MOTDHandler(getDataFolder() + File.separator + "Motd.txt");
 		NpcTraitConfig = new NpcTraitConfig(getDataFolder() + File.separator + "TraitCache.txt");
 		SBMan = new ScoreboardHandler(this);
+		GUIAPI = (InputGuiAPI) Bukkit.getPluginManager().getPlugin("InputGui");
 		
 		new Events(this);
 		new TraitRegister();

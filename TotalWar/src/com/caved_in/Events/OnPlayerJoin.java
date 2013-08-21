@@ -1,8 +1,11 @@
 package com.caved_in.Events;
 
+import java.util.Arrays;
+
 import ca.wacos.nametagedit.NametagAPI;
 import me.cybermaxke.materialapi.inventory.CustomItemStack;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -12,6 +15,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 
 import com.caved_in.TotalWar;
+import com.caved_in.Handlers.ItemHandlers.ItemHandler;
 import com.caved_in.Items.Armors.LeatherBoots;
 import com.caved_in.Items.Armors.LeatherCaps;
 import com.caved_in.Items.Armors.LeatherChest;
@@ -39,11 +43,13 @@ public class OnPlayerJoin implements Listener
 			Player.getInventory().setChestplate(new CustomItemStack(new LeatherChest("StarterChest", Material.LEATHER_CHESTPLATE, Tier.Common)).getItem());
 			Player.getInventory().setLeggings(new CustomItemStack(new LeatherPants("StarterPants", Material.LEATHER_LEGGINGS, Tier.Common)).getItem());
 			Player.getInventory().setBoots(new CustomItemStack(new LeatherBoots("StarterBoots", Material.LEATHER_BOOTS, Tier.Common)).getItem());
-			Player.getInventory().addItem(new ItemStack[] { TotalWarItems.ItemHandler.getCustomItemStack("Blade", ItemStackHandler.Tier.Common, Material.STONE_SWORD).getItem() });
+			Player.getInventory().addItem(new ItemStack[] { TotalWarItems.ItemHandler.getCustomItemStack("Blade", ItemStackHandler.Tier.Common, Material.IRON_SWORD).getItem() });
 			Player.getInventory().addItem(new ItemStack[] { TotalWarItems.ItemHandler.getCustomItemStack("Bow", ItemStackHandler.Tier.Common, Material.BOW).getItem() });
 			Player.getInventory().addItem(new ItemStack[] { new ItemStack(Material.ARROW, 15) });
 			Player.getInventory().addItem(new ItemStack[] { new ItemStack(Material.APPLE, 1) });
 			Player.getInventory().addItem(new ItemStack[] { new ItemStack(Material.BREAD, 1) });
+			ItemStack Paper = new ItemHandler().makeItemStack(Material.PAPER, ChatColor.WHITE + "Adventurers Toolkit", Arrays.asList(new String[] {ChatColor.YELLOW + "Used to access in-game menus!"}));
+			Player.getInventory().addItem(Paper);
 		}
 		
 		TotalWar.EventDynamics.putPlayerInAllEvents(Player.getName());

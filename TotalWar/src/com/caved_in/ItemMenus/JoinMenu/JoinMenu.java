@@ -1,4 +1,4 @@
-package com.caved_in.ItemMenus.MainMenu.JoinMenu;
+package com.caved_in.ItemMenus.JoinMenu;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -16,11 +16,7 @@ public class JoinMenu
 	
 	public JoinMenu()
 	{
-		this.JoinMenu = PopupMenuAPI.createMenu("Pick a faction!", 1);
-		this.JoinMenu.addMenuItem(new JoinMenuItem(ChatColor.YELLOW + "Join the Templars", new MaterialData(Material.INK_SACK,(byte)11), Faction.Templar), 0);
-		this.JoinMenu.addMenuItem(new JoinMenuItem(ChatColor.YELLOW + "Join the Pagans", new MaterialData(Material.INK_SACK,(byte)2), Faction.Pagan), 1);
-		this.JoinMenu.addMenuItem(new JoinMenuItem(ChatColor.YELLOW + "Join the Dragonkin", new MaterialData(Material.INK_SACK,(byte)1), Faction.Dragonkin), 2);
-		this.JoinMenu.addMenuItem(new JoinMenuItem(ChatColor.YELLOW + "Join the Pirates", new MaterialData(Material.INK_SACK,(byte)12), Faction.Pirate), 3);
+	
 	}
 	
 	public JoinMenu(Player Player)
@@ -30,7 +26,19 @@ public class JoinMenu
 		this.JoinMenu.addMenuItem(new JoinMenuItem(ChatColor.YELLOW + "Join the Pagans", new MaterialData(Material.INK_SACK,(byte)2), Faction.Pagan), 1);
 		this.JoinMenu.addMenuItem(new JoinMenuItem(ChatColor.YELLOW + "Join the Dragonkin", new MaterialData(Material.INK_SACK,(byte)1), Faction.Dragonkin), 2);
 		this.JoinMenu.addMenuItem(new JoinMenuItem(ChatColor.YELLOW + "Join the Pirates", new MaterialData(Material.INK_SACK,(byte)12), Faction.Pirate), 3);
+		this.JoinMenu.setExitOnClickOutside(false);
 		this.JoinMenu.openMenu(Player);
+	}
+	
+	public PopupMenu getMenu()
+	{
+		this.JoinMenu = PopupMenuAPI.createMenu("Pick a faction!", 1);
+		this.JoinMenu.addMenuItem(new JoinMenuItem(ChatColor.YELLOW + "Join the Templars", new MaterialData(Material.INK_SACK,(byte)11), Faction.Templar), 0);
+		this.JoinMenu.addMenuItem(new JoinMenuItem(ChatColor.YELLOW + "Join the Pagans", new MaterialData(Material.INK_SACK,(byte)2), Faction.Pagan), 1);
+		this.JoinMenu.addMenuItem(new JoinMenuItem(ChatColor.YELLOW + "Join the Dragonkin", new MaterialData(Material.INK_SACK,(byte)1), Faction.Dragonkin), 2);
+		this.JoinMenu.addMenuItem(new JoinMenuItem(ChatColor.YELLOW + "Join the Pirates", new MaterialData(Material.INK_SACK,(byte)12), Faction.Pirate), 3);
+		this.JoinMenu.setExitOnClickOutside(false);
+		return this.JoinMenu;
 	}
 	
 	public void ShowMenu(Player Player)
