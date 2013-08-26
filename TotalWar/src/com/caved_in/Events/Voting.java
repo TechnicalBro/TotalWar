@@ -13,6 +13,7 @@ public class Voting implements Listener
 
 	public Voting(TotalWar Plugin)
 	{
+		Plugin.getServer().getPluginManager().registerEvents(this, Plugin);
 	}
 
 	@EventHandler

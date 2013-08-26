@@ -16,10 +16,11 @@ import org.bukkit.entity.Player;
 
 import com.caved_in.TotalWar;
 import com.caved_in.Handlers.EntityHandlers.BossHandler.BossType;
+import com.caved_in.Handlers.Misc.MiscUtils;
 import com.caved_in.ItemMenus.RewardsMenu.RewardsMenu;
 import com.caved_in.Items.ArcaneGem;
 import com.caved_in.TotalWarItems.TotalWarItems;
-import com.caved_in.TotalWarItems.Handlers.ItemStackHandler.Tier;
+import com.caved_in.TotalWarItems.Handlers.Items.ItemStackHandler.Tier;
 
 public class AreaEvent
 {
@@ -154,12 +155,12 @@ public class AreaEvent
 	{
 		List<CustomItemStack> Stacks = new ArrayList<CustomItemStack>();
 
-		if (PercentCheck(3.0D))
+		if (MiscUtils.PercentCheck(3.0D))
 		{
 			Stacks.add(TotalWarItems.ItemHandler.getCustomItemStack("Banger"));
 		}
 
-		if (PercentCheck(8.0D))
+		if (MiscUtils.PercentCheck(8.0D))
 		{
 			if (new Random().nextInt(2) == 1)
 			{
@@ -170,7 +171,7 @@ public class AreaEvent
 				Stacks.add(TotalWarItems.ItemHandler.getCustomItemStack("Katana", Tier.Epic));
 			}
 		}
-		else if (PercentCheck(50.0D))
+		else if (MiscUtils.PercentCheck(50.0D))
 		{
 			if (new Random().nextInt(2) == 1)
 			{
@@ -187,15 +188,15 @@ public class AreaEvent
 			Stacks.add(TotalWarItems.ItemHandler.getCustomItemStack("Katana", Tier.Common));
 		}
 
-		if (PercentCheck(3.0D))
+		if (MiscUtils.PercentCheck(3.0D))
 		{
 			Stacks.add(TotalWarItems.ItemHandler.getCustomItemStack("DragonBow"));
 		}
-		if (PercentCheck(8.0D))
+		if (MiscUtils.PercentCheck(8.0D))
 		{
 			Stacks.add(TotalWarItems.ItemHandler.getCustomItemStack("Bow", Tier.Epic));
 		}
-		else if (PercentCheck(50.0D))
+		else if (MiscUtils.PercentCheck(50.0D))
 		{
 			Stacks.add(TotalWarItems.ItemHandler.getCustomItemStack("Bow", Tier.Rare));
 		}
@@ -204,7 +205,7 @@ public class AreaEvent
 			Stacks.add(TotalWarItems.ItemHandler.getCustomItemStack("Bow", Tier.Common));
 		}
 
-		if (PercentCheck(40D))
+		if (MiscUtils.PercentCheck(40D))
 		{
 			CustomItemStack GemStack = new CustomItemStack(Material.EMERALD);
 			GemStack.setName(ChatColor.LIGHT_PURPLE + "Random Gem");
@@ -212,19 +213,19 @@ public class AreaEvent
 			Stacks.add(GemStack);
 		}
 
-		if (PercentCheck(40D))
+		if (MiscUtils.PercentCheck(40D))
 		{
 			CustomItemStack Arcane = new CustomItemStack(new ArcaneGem().getItem());
 			Arcane.addLore(new String[] { "Increases your Mana Regen" });
 			Stacks.add(Arcane);
 		}
 
-		if (PercentCheck(40D))
+		if (MiscUtils.PercentCheck(40D))
 		{
 			Stacks.add(TotalWarItems.ItemHandler.getCustomItemStack("HorseArmor"));
 		}
 
-		if (PercentCheck(60D))
+		if (MiscUtils.PercentCheck(60D))
 		{
 			switch (new Random().nextInt(16))
 			{
@@ -280,7 +281,7 @@ public class AreaEvent
 				break;
 			}
 
-			if (PercentCheck(35D))
+			if (MiscUtils.PercentCheck(35D))
 			{
 				switch (new Random().nextInt(4))
 				{
@@ -309,16 +310,6 @@ public class AreaEvent
 		List<CustomItemStack> Stacks = generateStacks();
 		new RewardsMenu(Player, Stacks);
 		TotalWar.economy.depositPlayer(Player.getName(), this.MoneyMin + new Random().nextInt(this.MoneyMax));
-		Player.sendMessage("You receive some money for completing the event!");
-	}
-
-	private boolean PercentCheck(double Chances)
-	{
-		if (new Random().nextInt(100) <= Chances)
-		{
-			return true;
-		}
-		return false;
 	}
 
 	public Material getEventMaterial()

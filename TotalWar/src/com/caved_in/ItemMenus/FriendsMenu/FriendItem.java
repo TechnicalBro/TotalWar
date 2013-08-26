@@ -28,7 +28,7 @@ public class FriendItem extends MenuItem
 	@Override
 	public void onClick(Player Player)
 	{
-		this.getMenu().switchMenu(Player, new ActionsMenu(this.getText()).getMenu());
+		this.getMenu().switchMenu(Player, new ActionsMenu(this.getText(),Player.isOp()).getMenu());
 	}
 
 }

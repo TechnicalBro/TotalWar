@@ -1,4 +1,4 @@
-package com.caved_in.command_executors;
+package com.caved_in.command_executors.Admin;
 
 import com.caved_in.Items.Gem;
 import com.caved_in.TotalWarItems.TotalWarItems;

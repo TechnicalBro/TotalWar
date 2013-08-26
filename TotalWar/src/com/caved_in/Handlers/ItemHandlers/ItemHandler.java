@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
+import org.apache.commons.lang.WordUtils;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -23,7 +24,7 @@ public class ItemHandler
 	 * @return ArrayList<String> of the lore if the item has lore, otherwise
 	 *         null
 	 */
-	public ArrayList<String> getItemLore(ItemStack Item)
+	public static ArrayList<String> getItemLore(ItemStack Item)
 	{
 		ArrayList<String> ReturnLore = new ArrayList<String>();
 		if (Item.hasItemMeta() && Item.getItemMeta().hasLore())
@@ -46,7 +47,7 @@ public class ItemHandler
 	 *            Index of lore to get
 	 * @return String of lore if it exists, otherwise null
 	 */
-	public String getItemLore(ItemStack Item, int Line)
+	public static String getItemLore(ItemStack Item, int Line)
 	{
 		if (Item.hasItemMeta() && Item.getItemMeta().hasLore())
 		{
@@ -62,6 +63,20 @@ public class ItemHandler
 		}
 		return null;
 	}
+	
+	public static ItemStack addLore(ItemStack Item, List<String> Lore)
+	{
+		ItemMeta iMeta = Item.getItemMeta();
+		List<String> LoreLine = new ArrayList<String>();
+		if (Item.hasItemMeta() && Item.getItemMeta().hasLore())
+		{
+			LoreLine = Item.getItemMeta().getLore();
+		}
+		LoreLine.addAll(Lore);
+		iMeta.setLore(LoreLine);
+		Item.setItemMeta(iMeta);
+		return Item;
+	}
 
 	/**
 	 * Checks if an items lore contains specific text
@@ -72,7 +87,7 @@ public class ItemHandler
 	 *            Text to check the item for
 	 * @return true if the item has the text in its lore, otherwise false.
 	 */
-	public boolean itemLoreContains(ItemStack Item, String Text)
+	public static boolean itemLoreContains(ItemStack Item, String Text)
 	{
 		if (Item.hasItemMeta() && Item.getItemMeta().hasLore())
 		{
@@ -96,11 +111,12 @@ public class ItemHandler
 	 * @param Text
 	 *            The name to give the item
 	 */
-	public void setItemName(ItemStack Item, String Text)
+	public static ItemStack setItemName(ItemStack Item, String Text)
 	{
 		ItemMeta iMeta = Item.getItemMeta();
 		iMeta.setDisplayName(Text);
 		Item.setItemMeta(iMeta);
+		return Item;
 	}
 
 	/**
@@ -110,7 +126,7 @@ public class ItemHandler
 	 * @return Name of the item if it has a name, otherwise its material type in
 	 *         lowercase
 	 */
-	public String getItemName(ItemStack Item)
+	public static String getItemName(ItemStack Item)
 	{
 		if (Item.hasItemMeta() && Item.getItemMeta().hasDisplayName())
 		{
@@ -127,7 +143,7 @@ public class ItemHandler
 	 * @return The itemstack if there are more than 0 items left in the stack,
 	 *         otherwise null
 	 */
-	public ItemStack RemoveFromStack(ItemStack Item, int Amount)
+	public static ItemStack RemoveFromStack(ItemStack Item, int Amount)
 	{
 		if (Item.getAmount() > Amount)
 		{
@@ -147,7 +163,7 @@ public class ItemHandler
 	 * @param Color
 	 * @return true if the color was set, otherwise false
 	 */
-	public boolean setColor(ItemStack Item, Color Color)
+	public static ItemStack setColor(ItemStack Item, Color Color)
 	{
 		List<Material> Leathers = Arrays.asList(new Material[] { Material.LEATHER_BOOTS, Material.LEATHER_CHESTPLATE, Material.LEATHER_HELMET, Material.LEATHER_LEGGINGS });
 		if (Leathers.contains(Item.getType()))
@@ -161,10 +177,10 @@ public class ItemHandler
 			catch (Exception Ex)
 			{
 				Ex.printStackTrace();
-				return false;
+				return Item;
 			}
 		}
-		return false;
+		return Item;
 	}
 
 	/**
@@ -176,12 +192,12 @@ public class ItemHandler
 	 * @param IgnoreRestrictions
 	 * @return true if the enchantment was added, false otherwise
 	 */
-	public boolean addEnchantment(ItemStack Item, Enchantment Enchant, int Level, boolean IgnoreRestrictions)
+	public static ItemStack addEnchantment(ItemStack Item, Enchantment Enchant, int Level, boolean IgnoreRestrictions)
 	{
 		ItemMeta iMeta = Item.getItemMeta();
 		boolean Status = iMeta.addEnchant(Enchant, Level, IgnoreRestrictions);
 		Item.setItemMeta(iMeta);
-		return Status;
+		return Item;
 	}
 
 	/**
@@ -192,57 +208,83 @@ public class ItemHandler
 	 * @param Level
 	 * @return
 	 */
-	public boolean addEnchantment(ItemStack Item, Enchantment Enchant, int Level)
+	public static ItemStack addEnchantment(ItemStack Item, Enchantment Enchant, int Level)
 	{
-		return this.addEnchantment(Item, Enchant, Level, false);
+		return addEnchantment(Item, Enchant, Level, false);
 	}
 
-	public boolean setItemLore(ItemStack Item, List<String> Lore)
+	public static ItemStack setItemLore(ItemStack Item, List<String> Lore)
 	{
 		try
 		{
 			ItemMeta iMeta = Item.getItemMeta();
 			iMeta.setLore(Lore);
 			Item.setItemMeta(iMeta);
-			return true;
+			return Item;
 		}
 		catch (Exception Ex)
 		{
 			Ex.printStackTrace();
-			return false;
+			return Item;
 		}
 	}
 
-	public ItemStack makeItemStack(Material Material)
+	public static ItemStack makeItemStack(Material Material)
 	{
 		return new ItemStack(Material);
 	}
 
-	public ItemStack makeItemStack(Material Material, String Name)
+	public static ItemStack makeItemStack(Material Material, String Name)
 	{
 		ItemStack Item = new ItemStack(Material);
-		this.setItemName(Item, Name);
+		setItemName(Item, Name);
 		return Item;
 	}
 
-	public ItemStack makeItemStack(Material Material, String Name, List<String> Lore)
+	public static ItemStack makeItemStack(Material Material, String Name, List<String> Lore)
 	{
 		ItemStack Item = new ItemStack(Material);
-		this.setItemName(Item, Name);
-		this.setItemLore(Item, Lore);
+		setItemName(Item, Name);
+		setItemLore(Item, Lore);
 		return Item;
 	}
 
-	public ItemStack makeLeatherItemStack(Material Material, String Name, List<String> Lore, HashMap<Enchantment, Integer> Enchantments, Color Color)
+	public static ItemStack makeLeatherItemStack(Material Material, String Name, List<String> Lore, HashMap<Enchantment, Integer> Enchantments, Color Color)
 	{
 		ItemStack Item = new ItemStack(Material);
-		this.setItemName(Item, Name);
-		this.setItemLore(Item, Lore);
+		setItemName(Item, Name);
+		setItemLore(Item, Lore);
 		for (Entry<Enchantment, Integer> Enchant : Enchantments.entrySet())
 		{
-			this.addEnchantment(Item, Enchant.getKey(), Enchant.getValue(), true);
+			addEnchantment(Item, Enchant.getKey(), Enchant.getValue(), true);
 		}
-		this.setColor(Item, Color);
+		setColor(Item, Color);
 		return Item;
+	}
+	
+	public static ItemStack makeLeatherItemStack(Material Material, String Name, List<String> Lore, Color Color)
+	{
+		ItemStack Item = new ItemStack(Material);
+		setItemName(Item, Name);
+		setItemLore(Item, Lore);
+		setColor(Item, Color);
+		return Item;
+	}
+	
+	public static ItemStack makeLeatherItemStack(Material Material,Color Color)
+	{
+		ItemStack Item = new ItemStack(Material);
+		setColor(Item, Color);
+		return Item;
+	}
+	
+	public static String getFormattedMaterialName(Material Material)
+	{
+		return WordUtils.capitalize(Material.name().toLowerCase().replaceAll("_", " "));
+	}
+	
+	public static Material unFormatMaterialName(String string)
+	{
+		  return Material.valueOf(string.toUpperCase().replaceAll(" ", "_"));
 	}
 }

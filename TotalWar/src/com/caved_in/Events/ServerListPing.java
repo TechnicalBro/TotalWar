@@ -1,6 +1,5 @@
 package com.caved_in.Events;
 
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.server.ServerListPingEvent;
 
@@ -14,9 +13,9 @@ public class ServerListPing implements Listener
 		Plugin.getServer().getPluginManager().registerEvents(this, Plugin);
 	}
 
-	@EventHandler
+	//@EventHandler
 	public void ServerListPingCall(ServerListPingEvent Event)
 	{
-		Event.setMotd(TotalWar.MotdHandler.getRandomMotd());
+		//Event.setMotd(TotalWar.MotdHandler.getRandomMotd());
 	}
 }

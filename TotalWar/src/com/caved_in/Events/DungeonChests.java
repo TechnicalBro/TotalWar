@@ -18,7 +18,7 @@ public class DungeonChests implements Listener
 
 	public DungeonChests(TotalWar Plugin)
 	{
-
+		Plugin.getServer().getPluginManager().registerEvents(this, Plugin);
 	}
 
 	@EventHandler

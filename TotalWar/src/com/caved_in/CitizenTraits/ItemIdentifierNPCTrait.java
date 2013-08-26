@@ -18,6 +18,7 @@ import org.bukkit.inventory.ItemStack;
 
 import com.caved_in.TotalWar;
 import com.caved_in.Cooldown.Cooldown;
+import com.caved_in.Handlers.ItemHandlers.ItemHandler;
 import com.caved_in.TotalWarItems.TotalWarItems;
 
 public class ItemIdentifierNPCTrait extends Trait
@@ -70,7 +71,7 @@ public class ItemIdentifierNPCTrait extends Trait
 		if (Player.getItemInHand() != null && Player.getItemInHand().hasItemMeta() == true)
 		{
 			ItemStack Item = Player.getItemInHand();
-			if (TotalWar.ItemNamer.itemLoreContains(Item, "hidden potential") == true)
+			if (ItemHandler.itemLoreContains(Item, "hidden potential") == true)
 			{
 				if (TotalWar.economy.has(Player.getName(), TotalWar.Plugin_Config.getHiddenPotentialAppraisalPrice()) == true)
 				{

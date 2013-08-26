@@ -59,9 +59,14 @@ public class DataHandler
 		return null;
 	}
 
-	public String getStringBetween(String Data, String Start, String End)
+	public static String getStringBetween(String Data, String Start, String End)
 	{
 		return StringUtils.substringBetween(Data, Start, End);
+	}
+	
+	public static String getStringBetween(String Data, Tag Tag)
+	{
+		return getStringBetween(Data,Tag.Open(),Tag.Close());
 	}
 
 	public String getBetween(String Start, String End)
@@ -74,9 +79,14 @@ public class DataHandler
 		return getStringBetween(getText(), Tag.getOpen(), Tag.getClose());
 	}
 
-	public List<String> getAllBetween(String Data, String Start, String End)
+	public static List<String> getAllBetween(String Data, String Start, String End)
 	{
 		return Arrays.asList(StringUtils.substringsBetween(Data, Start, End));
+	}
+	
+	public static List<String> getAllBetween(String Data, Tag Tag)
+	{
+		return getAllBetween(Data,Tag.Open(),Tag.Close());
 	}
 
 	public List<String> getAllBetween(String Start, String End)

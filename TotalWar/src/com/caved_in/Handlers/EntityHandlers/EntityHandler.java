@@ -26,18 +26,6 @@ public class EntityHandler
 	private String Kraken_Cooldown = "KRAKEN_EVENT";
 	public static Cooldown Event_Cooldown = new Cooldown(900);
 
-	// public static Boss[] BossEntities = { new Kraken(), new Shicken(), new
-	// Cthulu(), new DrNate(), new AquaDan(), new Kamikaze_Creeper(), new
-	// Porker(), new Queen_Widow() };
-	public static int KrakenInt = 0;
-	public static int ShickenInt = 1;
-	public static int CthuluInt = 2;
-	public static int DrNateInt = 3;
-	public static int AquaDanint = 4;
-	public static int KamikazeCreeperInt = 5;
-	public static int PorkerInt = 6;
-	public static int QueenWidowInt = 7;
-
 	public void ModifyMob(Damageable Mob)
 	{
 		if (Mob instanceof LivingEntity)

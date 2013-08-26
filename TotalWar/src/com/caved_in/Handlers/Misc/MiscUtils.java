@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -252,5 +253,10 @@ public class MiscUtils
 		yaml.loadFromString(sb.toString());
 
 		return yaml;
+	}
+	
+	public static boolean PercentCheck(double Percent)
+	{
+		return new Random().nextInt(101) <= Percent;
 	}
 }

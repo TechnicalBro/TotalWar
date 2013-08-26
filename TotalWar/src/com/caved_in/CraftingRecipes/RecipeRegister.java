@@ -1,10 +1,13 @@
 package com.caved_in.CraftingRecipes;
 
 import com.caved_in.TotalWar;
+import com.caved_in.CraftingRecipes.Recipes.DiamondRecipe;
+import com.caved_in.CraftingRecipes.Recipes.LeatherRecipe;
+import com.caved_in.CraftingRecipes.Recipes.SaddleRecipe;
 
-public class Recipes
+public class RecipeRegister
 {
-	public Recipes(TotalWar Plugin)
+	public RecipeRegister(TotalWar Plugin)
 	{
 		// new CoalRecipe(Plugin).registerRecipe();
 		new DiamondRecipe(Plugin).registerRecipe();

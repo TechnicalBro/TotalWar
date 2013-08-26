@@ -14,14 +14,15 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
 import com.caved_in.TotalWar;
+import com.caved_in.Handlers.PlayerHandlers.PlayerHandler;
 
-public class DamageEnemy implements Listener
+public class EntityEvents implements Listener
 {
-	public DamageEnemy(TotalWar Plugin)
+	public EntityEvents(TotalWar Plugin)
 	{
 		Plugin.getServer().getPluginManager().registerEvents(this, Plugin);
 	}
-
+	
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void EntityDamaged(EntityDamageEvent Event)
 	{
@@ -74,10 +75,10 @@ public class DamageEnemy implements Listener
 			}
 		}
 	}
-
+	
 	private boolean HandlePVP(Player Attacker, Player Attacked)
 	{
-		if (TotalWar.PlayerHandler.isSameFaction(Attacker, Attacked) || (FriendSystem.FriendsChat.Friends.get(Attacker).getFriendsList().isFriendWith(Attacked.getName()) && FriendSystem.FriendsChat.Friends.get(Attacked).getFriendsList().isFriendWith(Attacker.getName())))
+		if (PlayerHandler.isSameFaction(Attacker, Attacked))
 		{
 			return true;
 		}
@@ -125,4 +126,7 @@ public class DamageEnemy implements Listener
 		}
 		return;
 	}
+
+	
+	
 }

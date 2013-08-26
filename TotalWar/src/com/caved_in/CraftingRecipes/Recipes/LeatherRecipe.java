@@ -1,10 +1,12 @@
-package com.caved_in.CraftingRecipes;
+package com.caved_in.CraftingRecipes.Recipes;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 
 import com.caved_in.TotalWar;
+import com.caved_in.CraftingRecipes.Recipe;
+import com.caved_in.CraftingRecipes.RecipeInterface.RecipeComp;
 
 public class LeatherRecipe extends Recipe
 {

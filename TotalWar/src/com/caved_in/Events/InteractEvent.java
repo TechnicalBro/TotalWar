@@ -128,7 +128,7 @@ public class InteractEvent implements Listener
 						if (iMeta.getDisplayName().contains("[+"))
 						{
 							HasEnhanced = true;
-							String DataParse = new DataHandler().getStringBetween(iMeta.getDisplayName(), "[+", "]");
+							String DataParse = DataHandler.getStringBetween(iMeta.getDisplayName(), "[+", "]");
 							try
 							{
 								PreviousPlus = Integer.parseInt(DataParse);

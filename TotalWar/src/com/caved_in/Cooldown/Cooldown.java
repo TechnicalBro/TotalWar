@@ -63,8 +63,3 @@ public class Cooldown
 		return false;
 	}
 }
-
-/*
- * Location: C:\Users\Brandon\Desktop\TotalWar.jar Qualified Name:
- * com.caved_in.Cooldown.Cooldown JD-Core Version: 0.6.2
- */

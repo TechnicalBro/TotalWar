@@ -10,5 +10,6 @@ public class TraitRegister
 		CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(EventNPCTrait.class).withName("eventnpc"));
 		CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(TravelNPCTrait.class).withName("travelnpc"));
 		CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(ItemIdentifierNPCTrait.class).withName("appraiser"));
+		CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(SpellBinder.class).withName("spellbinder"));
 	}
 }

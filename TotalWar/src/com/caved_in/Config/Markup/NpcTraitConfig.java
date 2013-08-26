@@ -31,10 +31,10 @@ public class NpcTraitConfig
 		{
 			try
 			{
-				int ID = Integer.parseInt(this.DataHandler.getStringBetween(S, IDTag.Open(), IDTag.Close()));
+				int ID = Integer.parseInt(DataHandler.getStringBetween(S, IDTag.Open(), IDTag.Close()));
 				if (!NpcData.containsKey(ID))
 				{
-					String Trait = this.DataHandler.getStringBetween(S, TraitTag.Open(), TraitTag.Close());
+					String Trait = DataHandler.getStringBetween(S, TraitTag.Open(), TraitTag.Close());
 					NpcData.put(ID, Trait);
 				}
 			}
@@ -72,7 +72,7 @@ public class NpcTraitConfig
 		{
 			try
 			{
-				int ID = Integer.parseInt(this.DataHandler.getStringBetween(S, IDTag.Open(), IDTag.Close()));
+				int ID = Integer.parseInt(com.caved_in.Handlers.FileHandler.DataHandler.getStringBetween(S, IDTag.Open(), IDTag.Close()));
 				if (ID == NPCID)
 				{
 					return true;

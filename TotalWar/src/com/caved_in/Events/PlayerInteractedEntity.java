@@ -2,8 +2,6 @@ package com.caved_in.Events;
 
 import java.util.Random;
 
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -11,19 +9,14 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
-import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
-
-import FriendSystem.FriendsChat;
-
 import com.caved_in.TotalWar;
 import com.caved_in.Cooldown.Cooldown;
 import com.caved_in.Handlers.EffectHandlers.ParticleEffects;
-import com.caved_in.Handlers.PlayerHandlers.PlayerHandler;
+import com.caved_in.Handlers.ItemHandlers.ItemHandler;
 import com.caved_in.ItemMenus.PlayerMenu.PlayerMenu;
 
 public class PlayerInteractedEntity implements Listener
 {
-	private ParticleEffects Particles;
 	private Cooldown Hearts = new Cooldown(1);
 
 	public PlayerInteractedEntity(TotalWar Plugin)
@@ -36,45 +29,26 @@ public class PlayerInteractedEntity implements Listener
 	{
 		Player Event_Player = Event.getPlayer();
 		Entity Event_Entity = Event.getRightClicked();
-		boolean isNPC = Event_Entity.hasMetadata("NPC");
-		if (!isNPC)
+		
+		if (!Event_Entity.hasMetadata("NPC") && Event_Entity instanceof Player)
 		{
-			if (((Event_Entity instanceof Player)))
+			if (Event_Player.getItemInHand().getType() == Material.RED_ROSE && !this.Hearts.IsOnCooldown(Event_Player.getName()))
 			{
-				if (Event_Player.getItemInHand().getType() == Material.RED_ROSE)
+				try
 				{
-					if (!this.Hearts.IsOnCooldown(Event_Player.getName()))
-					{
-						this.Particles = ParticleEffects.HEART;
-						Player RecievedRose = (Player) Event_Entity;
-						try
-						{
-							this.Particles.sendToAll(RecievedRose.getLocation(), new Random().nextFloat(), new Random().nextInt(5) + 4);
-						}
-						catch (Exception e)
-						{
-							e.printStackTrace();
-						}
-						Event_Player.setItemInHand(TotalWar.ItemNamer.RemoveFromStack(Event_Player.getItemInHand(), 1));
-						this.Hearts.SetOnCooldown(Event_Player.getName());
-						return;
-					}
-					return;
+					ParticleEffects.HEART.sendToAll(((Player)Event_Entity).getLocation(), new Random().nextFloat(),new Random().nextInt(5) + 4);
+					Event_Player.setItemInHand(ItemHandler.RemoveFromStack(Event_Player.getItemInHand(), 1));
+					this.Hearts.SetOnCooldown(Event_Player.getName());
 				}
-				else if (Event_Player.getItemInHand() == null || Event_Player.getItemInHand().getType() == Material.AIR)
+				catch (Exception e)
 				{
-					try
-					{
-						if (Event_Player.isSneaking())
-						{
-							new PlayerMenu(Event_Player,((Player) Event_Entity).getName());
-						}
-					}
-					catch (Exception Ex)
-					{
-						
-					}
+					e.printStackTrace();
 				}
+				return;
+			}
+			if (Event_Player.isSneaking() && (Event_Player.getItemInHand() == null || Event_Player.getItemInHand().getType() == Material.AIR))
+			{
+				new PlayerMenu(Event_Player,((Player) Event_Entity).getName());
 			}
 		}
 	}

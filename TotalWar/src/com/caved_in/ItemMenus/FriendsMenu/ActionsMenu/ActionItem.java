@@ -63,6 +63,38 @@ public class ActionItem extends MenuItem
 				{
 					Player.sendMessage(ChatColor.YELLOW + "They need to be online in-order to send them a message...");
 				}
+				break;
+			case SeeInventory:
+				if (Bukkit.getPlayer(this.Player) != null)
+				{
+					Player.chat("/invsee " + this.Player);
+				}
+				else
+				{
+					Player.sendMessage(Player + " needs to be online for you to do that...");
+				}
+				break;
+			case Kick:
+				if (Bukkit.getPlayer(this.Player) != null)
+				{
+					Bukkit.getPlayer(this.Player).kickPlayer("You were kicked by: " + Player.getName());
+				}
+				else
+				{
+					Player.sendMessage(this.Player + " needs to be online for you to do that...");
+				}
+				break;
+			case Kill:
+				if (Bukkit.getPlayer(this.Player) != null)
+				{
+					Bukkit.getPlayer(this.Player).setHealth(0.0D);
+					Bukkit.getPlayer(this.Player).sendMessage(ChatColor.AQUA + "Ouch, that must've hurt!");
+				}
+				else
+				{
+					Player.sendMessage(Player + " needs to be online for you to do that...");
+				}
+				break;
 			default:
 				break;
 		}
@@ -71,7 +103,7 @@ public class ActionItem extends MenuItem
 	
 	public enum Action
 	{
-		TeleportToRequest, TeleportHereRequest, RemoveFriend, PrivateMessage
+		TeleportToRequest, TeleportHereRequest, RemoveFriend, PrivateMessage,SeeInventory,Kick,Kill
 	}
 
 }

@@ -1,7 +1,7 @@
 package com.caved_in.Handlers.ItemHandlers;
 
 import com.caved_in.TotalWarItems.TotalWarItems;
-import com.caved_in.TotalWarItems.Handlers.ItemStackHandler;
+import com.caved_in.TotalWarItems.Handlers.Items.ItemStackHandler;
 
 import me.cybermaxke.materialapi.inventory.CustomItemStack;
 

@@ -7,7 +7,6 @@ import me.xhawk87.PopupMenuAPI.MenuItem;
 
 public class SpellsItem extends MenuItem
 {
-
 	public SpellsItem(String text, MaterialData icon)
 	{
 		super(text, icon);

@@ -12,7 +12,7 @@ import org.bukkit.inventory.ItemStack;
 
 import com.caved_in.Items.Gem;
 import com.caved_in.TotalWarItems.TotalWarItems;
-import com.caved_in.TotalWarItems.Handlers.ItemStackHandler.Tier;
+import com.caved_in.TotalWarItems.Handlers.Items.ItemStackHandler.Tier;
 
 public class LootGenerator
 {

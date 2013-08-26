@@ -2,24 +2,19 @@ package com.caved_in;
 
 import com.caved_in.CitizenTraits.TraitRegister;
 import com.caved_in.Config.Markup.WarpsConfig;
-import com.caved_in.Config.YML.JailConfig;
-import com.caved_in.Config.YML.MobDroprateConfig;
 import com.caved_in.Config.YML.PluginConfig;
-import com.caved_in.CraftingRecipes.Recipes;
+import com.caved_in.CraftingRecipes.RecipeRegister;
 import com.caved_in.Events.Events;
-import com.caved_in.Handlers.BookHandlers.BookUpdater;
 import com.caved_in.Handlers.DynamicEvents.AreaDynamicsHandler;
 import com.caved_in.Handlers.DynamicEvents.EventGenerator;
 import com.caved_in.Handlers.EntityHandlers.*;
 import com.caved_in.Handlers.FileHandler.DataHandler;
-import com.caved_in.Handlers.ItemHandlers.ItemHandler;
 import com.caved_in.Handlers.Misc.MOTDHandler;
 import com.caved_in.Handlers.PlayerHandlers.PlayerHandler;
 import com.caved_in.Handlers.Scoreboards.ScoreboardHandler;
 import com.caved_in.Items.Gem;
 import com.caved_in.Runnables.Runnables;
-import com.caved_in.Runnables.UpdateInventories;
-import com.caved_in.command_executors.Commands;
+import com.caved_in.command_executors.CommandRegister;
 import com.caved_in.Config.Markup.*;
 import com.caved_in.Cooldown.GlobalCooldowns;
 
@@ -61,13 +56,8 @@ public class TotalWar extends JavaPlugin
 	public static final String Pirate_Group_Name = "Pirate";
 	public static final String War_Config_Name = "War.yml";
 
-	public static JailConfig Jail_Config;
-	public static MobDroprateConfig Mob_Drops;
 	public static PluginConfig Plugin_Config;
 	public static AreaDynamicsHandler EventDynamics = new AreaDynamicsHandler();
-	public static ItemHandler ItemNamer = new ItemHandler();
-	public static PlayerHandler PlayerHandler = new PlayerHandler();
-	public static UpdateInventories InventoryUpdater;
 	public static DataHandler PlayersWhoveJoinedHandler;
 	public static WarpsConfig Waypoints;
 	public static NpcTraitConfig NpcTraitConfig;
@@ -75,10 +65,7 @@ public class TotalWar extends JavaPlugin
 	public static GlobalCooldowns Cooldowns = new GlobalCooldowns();
 	
 	public static boolean Debug = true;
-	public static boolean WarTimeMOTD = true;
-	public static Gem Gem = new Gem("", Material.EMERALD);
 	public static ScoreboardHandler SBMan;
-	public static MOTDHandler MotdHandler;
 
 	public static BossHandler BossHandler = new BossHandler();
 	
@@ -87,15 +74,9 @@ public class TotalWar extends JavaPlugin
 	@Override
 	public void onEnable()
 	{
-		saveResource("Mobdrops.yml", false);
-		saveResource("Jail.yml", false);
-		saveResource("Config.yml", false);
-		Jail_Config = new JailConfig(getDataFolder() + File.separator + "Jail.yml");
-		Mob_Drops = new MobDroprateConfig(getDataFolder() + File.separator + "Mobdrops.yml");
 		Plugin_Config = new PluginConfig(getDataFolder() + File.separator + "Config.yml");
 		PlayersWhoveJoinedHandler = new DataHandler(getDataFolder() + File.separator + "PlayersList.txt");
 		Waypoints = new WarpsConfig(getDataFolder() + File.separator + "Warps.txt");
-		MotdHandler = new MOTDHandler(getDataFolder() + File.separator + "Motd.txt");
 		NpcTraitConfig = new NpcTraitConfig(getDataFolder() + File.separator + "TraitCache.txt");
 		SBMan = new ScoreboardHandler(this);
 		GUIAPI = (InputGuiAPI) Bukkit.getPluginManager().getPlugin("InputGui");
@@ -105,10 +86,9 @@ public class TotalWar extends JavaPlugin
 		new Runnables(this);
 		setupEconomy();
 		setupPermissions();
-		new Commands(this);
-		new Recipes(this);
+		new CommandRegister(this);
+		new RecipeRegister(this);
 		AddEvents(Plugin_Config.getEventAmout());
-		InventoryUpdater = new UpdateInventories(this);
 		Bukkit.getWorld(Default_World_Name).setPVP(true);
 	}
 
@@ -134,11 +114,6 @@ public class TotalWar extends JavaPlugin
 		{
 			EventDynamics.AddEvent(new EventGenerator().generateEvent());
 		}
-	}
-
-	public static void ReloadConfig()
-	{
-		TotalWar.Plugin_Config = new PluginConfig("plugins/TotalWar/Config.yml");
 	}
 
 	public static void UpdateAllPlayerEvents()

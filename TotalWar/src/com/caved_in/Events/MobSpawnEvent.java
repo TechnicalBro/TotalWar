@@ -12,13 +12,14 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
+
 import com.caved_in.TotalWar;
 import com.caved_in.Cooldown.Cooldown;
 import com.caved_in.Handlers.EntityHandlers.EntityHandler;
-import com.caved_in.Handlers.EntityHandlers.HorseModifier;
 import com.caved_in.Handlers.EntityHandlers.BossHandler.BossType;
 import com.caved_in.Handlers.EntityHandlers.Bosses.Boss;
 import com.caved_in.Handlers.EntityHandlers.Bosses.BossWrapper;
+import com.caved_in.Handlers.Misc.MiscUtils;
 
 public class MobSpawnEvent implements Listener
 {
@@ -38,13 +39,13 @@ public class MobSpawnEvent implements Listener
 			switch (Event.getEntityType())
 			{
 			case OCELOT:
-				this.MobChanger.ModifyPeacefulMob(Event.getEntity());
-				break;
 			case MUSHROOM_COW:
+			case SNOWMAN:
+			case SHEEP:
 				this.MobChanger.ModifyPeacefulMob(Event.getEntity());
 				break;
 			case CHICKEN:
-				if (PercentCheck(3))
+				if (MiscUtils.PercentCheck(3))
 				{
 					Boss Shicken = TotalWar.BossHandler.makeBoss(BossType.Shicken, Event.getEntity().getEntityId());
 					double ShickenHealth = TotalWar.BossHandler.generateBossHP(Shicken.getMaxHP());
@@ -56,14 +57,8 @@ public class MobSpawnEvent implements Listener
 					this.MobChanger.ModifyPeacefulMob(Event.getEntity());
 				}
 				break;
-			case SHEEP:
-				this.MobChanger.ModifyPeacefulMob(Event.getEntity());
-				break;
-			case SNOWMAN:
-				this.MobChanger.ModifyPeacefulMob(Event.getEntity());
-				break;
 			case PIG:
-				if (PercentCheck(new Random().nextInt(10)))
+				if (MiscUtils.PercentCheck(new Random().nextInt(10)))
 				{
 					Boss Nate = TotalWar.BossHandler.makeBoss(BossType.DrNate, Event.getEntity().getEntityId());
 					double Health = TotalWar.BossHandler.generateBossHP(Nate.getMaxHP());
@@ -77,7 +72,7 @@ public class MobSpawnEvent implements Listener
 				}
 				break;
 			case SQUID:
-				if (PercentCheck(new Random().nextInt(6)))
+				if (MiscUtils.PercentCheck(new Random().nextInt(6)))
 				{
 					switch (new Random().nextInt(2))
 					{
@@ -103,7 +98,7 @@ public class MobSpawnEvent implements Listener
 				}
 				break;
 			case CREEPER:
-				if (PercentCheck(new Random().nextInt(15)))
+				if (MiscUtils.PercentCheck(new Random().nextInt(15)))
 				{
 					Boss Kamikaze = TotalWar.BossHandler.makeBoss(BossType.KamikazeCreeper, Event.getEntity().getEntityId());
 					double Health = TotalWar.BossHandler.generateBossHP(Kamikaze.getMaxHP());
@@ -117,7 +112,7 @@ public class MobSpawnEvent implements Listener
 				}
 				break;
 			case SKELETON:
-				if (PercentCheck(new Random().nextInt(9)))
+				if (MiscUtils.PercentCheck(new Random().nextInt(9)))
 				{
 					Boss Kraken = TotalWar.BossHandler.makeBoss(BossType.Skeletor, Event.getEntity().getEntityId());
 					double Health = TotalWar.BossHandler.generateBossHP(Kraken.getMaxHP());
@@ -131,7 +126,7 @@ public class MobSpawnEvent implements Listener
 				}
 				break;
 			case PIG_ZOMBIE:
-				if (PercentCheck(new Random().nextInt(8)))
+				if (MiscUtils.PercentCheck(new Random().nextInt(8)))
 				{
 					Boss Kamikaze = TotalWar.BossHandler.makeBoss(BossType.Porker, Event.getEntity().getEntityId());
 					double Health = TotalWar.BossHandler.generateBossHP(Kamikaze.getMaxHP());
@@ -145,7 +140,7 @@ public class MobSpawnEvent implements Listener
 				}
 				break;
 			case SPIDER:
-				if (PercentCheck(new Random().nextInt(9)))
+				if (MiscUtils.PercentCheck(new Random().nextInt(9)))
 				{
 					Boss Kamikaze = TotalWar.BossHandler.makeBoss(BossType.QueenWidow, Event.getEntity().getEntityId());
 					double Health = TotalWar.BossHandler.generateBossHP(Kamikaze.getMaxHP());
@@ -159,7 +154,7 @@ public class MobSpawnEvent implements Listener
 				}
 				break;
 			case ZOMBIE:
-				if (PercentCheck(new Random().nextInt(10)))
+				if (MiscUtils.PercentCheck(new Random().nextInt(10)))
 				{
 					Boss Kamikaze = TotalWar.BossHandler.makeBoss(BossType.ZombieBoss, Event.getEntity().getEntityId());
 					double Health = TotalWar.BossHandler.generateBossHP(Kamikaze.getMaxHP());
@@ -169,7 +164,7 @@ public class MobSpawnEvent implements Listener
 				}
 				else
 				{
-					if (PercentCheck(new Random().nextInt(2)))
+					if (MiscUtils.PercentCheck(new Random().nextInt(2)))
 					{
 						if (!this.GiantSpawn.IsOnCooldown("G"))
 						{
@@ -188,7 +183,7 @@ public class MobSpawnEvent implements Listener
 				}
 				break;
 			case ENDERMAN:
-				if (PercentCheck(new Random().nextInt(9)))
+				if (MiscUtils.PercentCheck(new Random().nextInt(9)))
 				{
 					Boss Kamikaze = TotalWar.BossHandler.makeBoss(BossType.Cthulu, Event.getEntity().getEntityId());
 					double Health = TotalWar.BossHandler.generateBossHP(Kamikaze.getMaxHP());
@@ -211,14 +206,5 @@ public class MobSpawnEvent implements Listener
 				break;
 			}
 		}
-	}
-
-	private boolean PercentCheck(int Chances)
-	{
-		if (new Random().nextInt(100) <= Chances)
-		{
-			return true;
-		}
-		return false;
 	}
 }

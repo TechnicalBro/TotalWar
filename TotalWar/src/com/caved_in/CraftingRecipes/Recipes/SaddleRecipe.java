@@ -1,10 +1,11 @@
-package com.caved_in.CraftingRecipes;
+package com.caved_in.CraftingRecipes.Recipes;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 
 import com.caved_in.TotalWar;
+import com.caved_in.CraftingRecipes.Recipe;
 
 public class SaddleRecipe extends Recipe
 {
@@ -25,7 +26,6 @@ public class SaddleRecipe extends Recipe
 		SaddleShape.setIngredient('I', Material.IRON_INGOT);
 		SaddleShape.setIngredient('L', Material.LEATHER);
 		this.Plugin.getServer().addRecipe(SaddleShape);
-
 	}
 
 }

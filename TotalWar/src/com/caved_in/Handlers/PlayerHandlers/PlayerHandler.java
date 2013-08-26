@@ -10,11 +10,12 @@ import com.caved_in.Cooldown.GlobalCooldowns;
 
 public class PlayerHandler
 {
-	public PlayerHandler()
+	public static boolean hasEmptySlot(Player Player)
 	{
+		return Player.getInventory().firstEmpty() == -1;
 	}
 
-	public Faction getPlayerFaction(Player Player)
+	public static Faction getPlayerFaction(Player Player)
 	{
 		if (TotalWar.permission.playerInGroup(Player, "Templar"))
 		{
@@ -35,12 +36,12 @@ public class PlayerHandler
 		return Faction.None;
 	}
 	
-	public boolean isSameFaction(Player PlayerOne, Player PlayerTwo)
+	public static boolean isSameFaction(Player PlayerOne, Player PlayerTwo)
 	{
 		return getPlayerFaction(PlayerOne) == getPlayerFaction(PlayerTwo);
 	}
 
-	public Faction getFaction(String Name)
+	public static Faction getFaction(String Name)
 	{
 		if (Name.equalsIgnoreCase("pagan"))
 		{
@@ -66,7 +67,7 @@ public class PlayerHandler
 		Templar, Pagan, Pirate, Dragonkin, None;
 	}
 	
-	public boolean JoinFaction(Player Player, Faction Faction)
+	public static boolean JoinFaction(Player Player, Faction Faction)
 	{
 		if (!Player.isOp())
 		{
@@ -76,6 +77,7 @@ public class PlayerHandler
 				return true;
 			}
 		}
+		
 		switch (Faction)
 		{
 		case Dragonkin:
@@ -109,7 +111,7 @@ public class PlayerHandler
 		}
 	}
 	
-	private void StripPermissions(Player Player)
+	private static void StripPermissions(Player Player)
 	{
 		TotalWar.permission.playerRemoveGroup(Player, "Templar");
 		TotalWar.permission.playerRemoveGroup(Player, "Pagan");
@@ -117,41 +119,41 @@ public class PlayerHandler
 		TotalWar.permission.playerRemoveGroup(Player, "Pirate");
 	}
 	
-	private void ColorMessage(Player Player, String Message)
+	private static void ColorMessage(Player Player, String Message)
 	{
 		Player.sendMessage(ChatColor.translateAlternateColorCodes('&', Message));
 	}
 
-	private void MakePagan(Player Player)
+	private static void MakePagan(Player Player)
 	{
 		StripPermissions(Player);
 		TotalWar.permission.playerAddGroup(Player, "Pagan");
 	}
 
-	private void MakeTemplar(Player Player)
+	private static void MakeTemplar(Player Player)
 	{
 		StripPermissions(Player);
 		TotalWar.permission.playerAddGroup(Player, "Templar");
 	}
 
-	private void MakePirate(Player Player)
+	private static void MakePirate(Player Player)
 	{
 		StripPermissions(Player);
 		TotalWar.permission.playerAddGroup(Player, "Pirate");
 	}
 
-	private void MakeDragonkin(Player Player)
+	private static void MakeDragonkin(Player Player)
 	{
 		StripPermissions(Player);
 		TotalWar.permission.playerAddGroup(Player, "Dragonkin");
 	}
 
-	private void PermissionRemove(Player Player, String Permission)
+	private static void PermissionRemove(Player Player, String Permission)
 	{
 		TotalWar.permission.playerRemove(Player, Permission);
 	}
 
-	private void PermissionAdd(Player Player, String Permission)
+	private static void PermissionAdd(Player Player, String Permission)
 	{
 		TotalWar.permission.playerAdd(Player, Permission);
 	}
