@@ -43,7 +43,7 @@ public class EntityEvents implements Listener
 		}
 	}
 
-	@EventHandler(priority = EventPriority.HIGH)
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void EnemyGetsHurtByAnotherEnemy(EntityDamageByEntityEvent Event)
 	{
 		if (Event.isCancelled())
@@ -89,39 +89,42 @@ public class EntityEvents implements Listener
 	{
 		if (Entity instanceof LivingEntity)
 		{
-			LivingEntity Mobs = (LivingEntity) Entity;
-			if (Mobs.getCustomName() != null)
+			if (!TamingSkill.TamingSkill.IsPet(Entity))
 			{
-				if (Mobs.getCustomName().contains("["))
+				LivingEntity Mobs = (LivingEntity) Entity;
+				if (Mobs.getCustomName() != null)
 				{
-					if (Entity.getHealth() - Damage >= 0)
+					if (Mobs.getCustomName().contains("["))
 					{
-						String EntityName = StringUtils.substringBefore(Mobs.getCustomName(), " [");
-						Mobs.setCustomName(EntityName + "  " + ChatColor.WHITE + ((int) Math.round((Entity.getHealth() - Damage))) + ChatColor.RED + "❤");
+						if (Entity.getHealth() - Damage >= 0)
+						{
+							String EntityName = StringUtils.substringBefore(Mobs.getCustomName(), " [");
+							Mobs.setCustomName(EntityName + "  " + ChatColor.WHITE + ((int) Math.round((Entity.getHealth() - Damage))) + ChatColor.RED + "❤");
+							return;
+						}
 						return;
+					}
+					else if (Mobs.getCustomName().contains("❤"))
+					{
+						if (Entity.getHealth() - Damage >= 0)
+						{
+							String EntityName = StringUtils.substringBefore(Mobs.getCustomName(), "  ");
+							Mobs.setCustomName(EntityName + "  " + ChatColor.WHITE + ((int) Math.round((Entity.getHealth() - Damage))) + ChatColor.RED + "❤");
+							return;
+						}
+						return;
+					}
+					else if (Mobs.getCustomName().contains("♥"))
+					{
+						if (Entity.getHealth() - Damage >= 0)
+						{
+							String EntityName = StringUtils.substringBefore(Mobs.getCustomName(), "  ");
+							Mobs.setCustomName(EntityName + "  " + ChatColor.WHITE + ((int) Math.round((Entity.getHealth() - Damage))) + ChatColor.RED + "❤");
+							return;
+						}
 					}
 					return;
-				}
-				else if (Mobs.getCustomName().contains("❤"))
-				{
-					if (Entity.getHealth() - Damage >= 0)
-					{
-						String EntityName = StringUtils.substringBefore(Mobs.getCustomName(), "  ");
-						Mobs.setCustomName(EntityName + "  " + ChatColor.WHITE + ((int) Math.round((Entity.getHealth() - Damage))) + ChatColor.RED + "❤");
-						return;
-					}
-					return;
-				}
-				else if (Mobs.getCustomName().contains("♥"))
-				{
-					if (Entity.getHealth() - Damage >= 0)
-					{
-						String EntityName = StringUtils.substringBefore(Mobs.getCustomName(), "  ");
-						Mobs.setCustomName(EntityName + "  " + ChatColor.WHITE + ((int) Math.round((Entity.getHealth() - Damage))) + ChatColor.RED + "❤");
-						return;
-					}
-				}
-				return;
+			}
 			}
 		}
 		return;

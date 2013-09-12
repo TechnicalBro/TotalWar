@@ -66,7 +66,8 @@ public class ItemHandler
 	
 	public static ItemStack addLore(ItemStack Item, List<String> Lore)
 	{
-		ItemMeta iMeta = Item.getItemMeta();
+		ItemStack Stack = Item.clone();
+		ItemMeta iMeta = Stack.getItemMeta();
 		List<String> LoreLine = new ArrayList<String>();
 		if (Item.hasItemMeta() && Item.getItemMeta().hasLore())
 		{
@@ -74,8 +75,8 @@ public class ItemHandler
 		}
 		LoreLine.addAll(Lore);
 		iMeta.setLore(LoreLine);
-		Item.setItemMeta(iMeta);
-		return Item;
+		Stack.setItemMeta(iMeta);
+		return new ItemStack(Stack);
 	}
 
 	/**
@@ -113,10 +114,11 @@ public class ItemHandler
 	 */
 	public static ItemStack setItemName(ItemStack Item, String Text)
 	{
-		ItemMeta iMeta = Item.getItemMeta();
+		ItemStack Stack = Item.clone();
+		ItemMeta iMeta = Stack.getItemMeta();
 		iMeta.setDisplayName(Text);
-		Item.setItemMeta(iMeta);
-		return Item;
+		Stack.setItemMeta(iMeta);
+		return new ItemStack(Stack);
 	}
 
 	/**
@@ -132,7 +134,7 @@ public class ItemHandler
 		{
 			return Item.getItemMeta().getDisplayName();
 		}
-		return Item.getType().toString().toLowerCase();
+		return getFormattedMaterialName(Item.getType());
 	}
 
 	/**
@@ -194,10 +196,11 @@ public class ItemHandler
 	 */
 	public static ItemStack addEnchantment(ItemStack Item, Enchantment Enchant, int Level, boolean IgnoreRestrictions)
 	{
-		ItemMeta iMeta = Item.getItemMeta();
+		ItemStack Stack = Item.clone();
+		ItemMeta iMeta = Stack.getItemMeta();
 		boolean Status = iMeta.addEnchant(Enchant, Level, IgnoreRestrictions);
-		Item.setItemMeta(iMeta);
-		return Item;
+		Stack.setItemMeta(iMeta);
+		return new ItemStack(Stack);
 	}
 
 	/**
@@ -215,17 +218,18 @@ public class ItemHandler
 
 	public static ItemStack setItemLore(ItemStack Item, List<String> Lore)
 	{
+		ItemStack Stack = Item.clone();
 		try
 		{
-			ItemMeta iMeta = Item.getItemMeta();
+			ItemMeta iMeta = Stack.getItemMeta();
 			iMeta.setLore(Lore);
-			Item.setItemMeta(iMeta);
-			return Item;
+			Stack.setItemMeta(iMeta);
+			return new ItemStack(Stack);
 		}
 		catch (Exception Ex)
 		{
 			Ex.printStackTrace();
-			return Item;
+			return new ItemStack(Stack);
 		}
 	}
 
@@ -237,45 +241,45 @@ public class ItemHandler
 	public static ItemStack makeItemStack(Material Material, String Name)
 	{
 		ItemStack Item = new ItemStack(Material);
-		setItemName(Item, Name);
+		Item = setItemName(Item, Name);
 		return Item;
 	}
 
 	public static ItemStack makeItemStack(Material Material, String Name, List<String> Lore)
 	{
 		ItemStack Item = new ItemStack(Material);
-		setItemName(Item, Name);
-		setItemLore(Item, Lore);
-		return Item;
+		Item = setItemName(Item,Name);
+		Item = setItemLore(Item,Lore);
+		return new ItemStack(Item);
 	}
 
 	public static ItemStack makeLeatherItemStack(Material Material, String Name, List<String> Lore, HashMap<Enchantment, Integer> Enchantments, Color Color)
 	{
 		ItemStack Item = new ItemStack(Material);
-		setItemName(Item, Name);
-		setItemLore(Item, Lore);
+		Item = setItemName(Item, Name);
+		Item = setItemLore(Item, Lore);
 		for (Entry<Enchantment, Integer> Enchant : Enchantments.entrySet())
 		{
-			addEnchantment(Item, Enchant.getKey(), Enchant.getValue(), true);
+			Item = addEnchantment(Item, Enchant.getKey(), Enchant.getValue(), true);
 		}
-		setColor(Item, Color);
-		return Item;
+		Item = setColor(Item, Color);
+		return new ItemStack(Item);
 	}
 	
 	public static ItemStack makeLeatherItemStack(Material Material, String Name, List<String> Lore, Color Color)
 	{
 		ItemStack Item = new ItemStack(Material);
-		setItemName(Item, Name);
-		setItemLore(Item, Lore);
-		setColor(Item, Color);
-		return Item;
+		Item = setItemName(Item, Name);
+		Item = setItemLore(Item, Lore);
+		Item = setColor(Item, Color);
+		return new ItemStack(Item);
 	}
 	
 	public static ItemStack makeLeatherItemStack(Material Material,Color Color)
 	{
 		ItemStack Item = new ItemStack(Material);
-		setColor(Item, Color);
-		return Item;
+		Item = setColor(Item, Color);
+		return new ItemStack(Item);
 	}
 	
 	public static String getFormattedMaterialName(Material Material)
@@ -286,5 +290,61 @@ public class ItemHandler
 	public static Material unFormatMaterialName(String string)
 	{
 		  return Material.valueOf(string.toUpperCase().replaceAll(" ", "_"));
+	}
+	
+	public static boolean IsSameItemstack(ItemStack One, ItemStack Two)
+	{
+		ItemStack Oc = One.clone();
+		ItemStack Tc = Two.clone();
+		
+		if (Oc.getType() == Tc.getType())
+		{
+			if (Oc.getData() == Tc.getData())
+			{
+				if (Oc.hasItemMeta() && Tc.hasItemMeta())
+				{
+					ItemMeta oMeta = Oc.getItemMeta();
+					ItemMeta tMeta = Tc.getItemMeta();
+					if (oMeta.hasDisplayName() && tMeta.hasDisplayName())
+					{
+						if (!oMeta.getDisplayName().equalsIgnoreCase(tMeta.getDisplayName()))
+						{
+							return false;
+						}
+					}
+					
+					if (oMeta.hasLore() && tMeta.hasLore())
+					{
+						if (!Arrays.equals(oMeta.getLore().toArray(), tMeta.getLore().toArray()))
+						{
+							return false;
+						}
+					}
+					
+					if (oMeta.hasEnchants() && tMeta.hasEnchants())
+					{
+						if ((!Arrays.equals(oMeta.getEnchants().keySet().toArray(),tMeta.getEnchants().keySet().toArray())) && !Arrays.equals(oMeta.getEnchants().values().toArray(), tMeta.getEnchants().values().toArray()))
+						{
+							return false;
+						}
+					}
+					
+					return true;
+					
+				}
+				else
+				{
+					return true;
+				}
+			}
+			else
+			{
+				return false;
+			}
+		}
+		else
+		{
+			return false;
+		}
 	}
 }

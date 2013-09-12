@@ -15,6 +15,7 @@ public class Events
 		//new ServerListPing(Plugin);
 		new Voting(Plugin);
 		new DungeonChests(Plugin);
+		new PlayerFish(Plugin);
 		TotalWar.Console("All Event listeners have been registered!");
 	}
 }

@@ -3,7 +3,7 @@ main: com.caved_in.TotalWar
 version: 1.1
 description: The "Main" framework for TGC's TotalWar
 author: Brandon_TGC
-depend: [Vault,MaterialAPI,Citizens,TotalWarItems,PopupMenuAPI,SkillSystem,Votifier,ChestRegen,TotalWizard,EnchantmentAPI,CosmeticEnchantments,FriendsChat,InputGui]
+depend: [Vault,MaterialAPI,Citizens,TotalWarItems,PopupMenuAPI,SkillSystem,Votifier,ChestRegen,TotalWizard,EnchantmentAPI,CosmeticEnchantments,FriendsChat,InputGui,TamingSkill]
 commands:
    stats:
       description: View your, or another players stats!
