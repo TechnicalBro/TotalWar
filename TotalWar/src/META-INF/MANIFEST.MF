@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Class-Path: TamingSystem.jar FriendSystem.jar SkillSystem.jar Votifier
+  (1).jar NametagEdit.jar EnchantmentAPI.jar ChestRegen.jar PopupMenuA
+ PI.jar TotalWarItems.jar TunnelsSQL.jar inputgui-dev-SNAPSHOT.jar dyn
+ map-api-1.8.jar spigot-1.6.2-R0.1-SNAPSHOT (12).jar citizensapi.jar T
+ otalWizard.jar MaterialAPI.jar Vault.jar
+

@@ -1,0 +1,26 @@
+Skeleton:
+    Droprate: 0.04
+Spider:
+    Droprate: 0.05
+CaveSpider:
+    Droprate: 0.013
+Creeper:
+    Droprate: 0.024
+Zombie:
+    Droprate: 0.06
+Giant:
+    Droprate: 0.50
+ZombiePigman:
+    Droprate: 0.07
+Ghast:
+    Droprate: 0.15
+Enderman:
+    Droprate: 0.06
+Witch:
+    Droprate: 0.25
+Wither:
+    Droprate: 0.70
+Slime:
+    Droprate: 0.07
+Blaze:
+    Droprate: 0.09

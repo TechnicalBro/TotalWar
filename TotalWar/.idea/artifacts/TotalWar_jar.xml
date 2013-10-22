@@ -1,0 +1,6 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="TotalWar:jar">
+    <output-path>$PROJECT_DIR$/classes/artifacts/TotalWar_jar</output-path>
+    <root id="archive" name="TotalWar_jar.jar" />
+  </artifact>
+</component>
